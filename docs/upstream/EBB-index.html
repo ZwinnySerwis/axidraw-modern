@@ -1,0 +1,505 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-N60PBK4LQP');
+    </script>
+    <meta content="text/html; charset=windows-1252"
+      http-equiv="content-type">
+    <title>EBB (EiBotBoard)</title>
+    <meta content="Brian Schmalz" name="author">
+    <meta content="Main page for EiBo Board documentation"
+      name="description">
+  </head>
+  <body>
+    <div style="text-align: center;">
+        <a href="http://www.schmalzhaus.com/">
+            <big>
+                <big>
+                    <span style="font-weight: bold;">
+                    <img alt="SchmalzHaus logo"
+                        src="Images/SchmalzHaus%20Logo%20Small.png"
+                        style="border: 0px solid ; width: 143px; height: 59px;"
+                        align="left">
+                    </span>
+                </big>
+            </big>
+        </a>
+        <big>
+            <big>
+                <span style="font-weight: bold;">
+                    <p>
+                        <big>EBB (EiBotBoard)</big>
+                    </p>
+                </span>
+            </big>
+        </big>
+        <big>
+            <big>
+                <span style="font-weight: bold;">
+                    <p>
+                        By: Brian Schmalz of Schmalz Haus
+                    </p>
+                </span>
+            </big>
+        </big>
+    </div>
+    
+    
+    <h2>Board Description:</h2>
+    
+    <p>
+        The EiBotBoard was originally designed for the Eggbot project (<a
+          href="http://www.egg-bot.com">www.egg-bot.com</a>). It is a small
+        (2.2" x 2.2") two channel stepper motor driver board with USB
+        microcontroller. It is based on the 
+        <a href="http://www.schmalzhaus.com/UBW">UBW board</a> and supports
+        all of the commands that the UBW does (for the most part), plus
+        several extra, like stepper motor commands and RC servo output
+        commands.
+    </p>
+    <p>
+        The idea with this board is to have a simple way to control two
+        stepper motors from a PC over a USB connection. This is accomplished
+        by two microstepping chopper stepper motor drivers and a small
+        Microchip PIC microcontroller that has USB support. When you plug
+        the EBB into a PC (Windows, Mac or Linux), it will show up as a
+        serial port. You can easily type commands to it using a
+        terminal emulator, or write your own application to send commands
+        for moving the stepper motors. The Eggbot project has also developed
+        a fantastic Inkscape extension that allows Inkscape to output
+        (print) directly to the EBB.
+    </p>
+    <p>
+        The main command that gets sent to the EBB tells it to move the
+        motors. This command (the "SM" command) will cause the motors to
+        move in a straight line between two points on a plane. To make
+        curved lines, just break the curve up into small straight line
+        segments. Each movement is executed in a controllable amount of
+        time, so you can control exactly how fast each move executes. The
+        EBB does not understand G-code.
+    </p>
+    <p>
+        Different board version have different features as the requirements
+        changed. This board has been evolving for almost a year and a half,
+        with 5 versions designed and built. As it turns out, it takes awhile
+        to get it right I guess!
+    </p>
+    
+    
+    <h2>Name Change:</h2>
+    
+    <p>
+        The board was originally called EggBotBoard, for (hopefully) obvious
+        reasons. As of hardware version 1.4, the name changed to EiBotBoard.
+        As it turns out, this little board is good at doing WAY more than
+        just plotting on eggs, so we didn't want to limit the scope of the
+        board to just EggBots. Why Ei? Well, Ei is the German word for Egg,
+        and we could keep the same acronym. Clever, no?
+    </p>
+    <div style="text-align: center;">
+        <p>
+            <img style="width: 394px; height:
+                378px;" alt="Picture of Egg Bot Board version 1.1"
+                title="EggBotBoard v11" src="v11/EBB_v11_raw_pic.jpg">
+            <img
+                style="width: 372px; height: 378px;" alt="White Version 2.0 EBB
+                By EMSL" src="Images/WhiteEBBv20.jpg">
+        </p>
+        <p>
+            Version 1.1 on left - (first version to go with EggBots in 2009)
+            and Version 2.0 on right, in white, sold by Evil Mad Science
+            (Yours may also be red rather than white.)
+        </p>
+    </div>
+    <p>
+        This page is a documentation page for the EBB project. It includes
+        design files, firmware versions, and source code for the EBB as well
+        as documentation on the commands that the EBB supports.
+    </p>
+    <p>    
+        For information on the EggBot kit by EMSL, please see 
+        <a href="http://evilmadscience.com/tinykitlist/171-egg-bot">their EggBot page</a>
+        . Note that you can buy just the 
+        <a href="http://evilmadscience.com/partsmenu/188-ebb">white EBB v2.0</a>
+        from EMSL.
+    </p>
+    
+    
+    <h2>EiBotBoard Commands</h2>
+    
+    <p>
+        You send commands to the EiBotBoard over USB, using either a custom
+        application on the PC side (Like the Inkscape plugin that was
+        written for EggBot) or a terminal emulator like TeraTerm, or your
+        own program using a language like Liberty Basic or Processing. The
+        commands are all simple ASCII and are all human readable. (And
+        writable!)
+    </p>
+    <p>
+        All of the EBB commands are documented on the new and improved 
+        <a href="http://evil-mad.github.io/EggBot/ebb.html">EBB Commands page</a>.
+        (Here is the old <a href="EBBCommands.html">EBB Commands</a> page
+        for historical reference).
+    </p>
+    
+    
+    <h2>Hardware</h2>
+    
+    <p>
+        The EiBotBoard hardware consists of a PIC18F46J50 microcontroller
+        and two Allegro A4983 stepper drivers, along with some voltage
+        regulators and USB connection hardware. It takes 6-24V DC power
+        input via the barrel jack connector. This directly powers the motor
+        driver chips, and is then regulated down to 5V to supply power to
+        the RC servos, and down to 3.3V to power the microcontroller. A
+        current adjustment potentiometer allows you to set the maximum
+        current allowed to the motors anywhere from 46mA to 1.25A per phase.
+        Two push buttons allow for resetting the board and entering into
+        bootloader mode (to update the firmware over USB). The EggBot kit
+        also uses the PRG button to allow the user to pause plotting.
+        Several LEDs indicate 3.3V power, stepper direction, and USB
+        connection status. Screw terminals allow for the connection of many
+        types of stepper motors, but they must either be four-wire motors or
+        6, 7 or 8 wire motors wired in bi-polar mode since the A4983s are
+        bi-polar driver chips. A header along the edge of the board allows
+        many extra I/O pins to be accessed for other uses in the future, and
+        there are eight 3-pin connectors for RC servos or other digital I/O.
+    </p>
+    <p>
+        The EBB is being manufactured by EMSL. You can order one 
+        <a href="http://evilmadscience.com/partsmenu/188-ebb">here (EMSL)</a>
+        <a href="http://www.sparkfun.com/products/10025"></a>.
+    </p>
+
+    <h3>EBB Version 2.1 Files:</h3>
+    <ul>
+      <li><a href="EBB/EBB_v21/EBB_v21_sch.pdf">Schematic</a> (PDF)</li>
+      <li><a href="EBB/EBB_v21/EBB_v21_brd.pdf">Board Layout</a> (PDF)</li>
+      <li><a href="EBB/EBB_v21/EBB_v21.zip">All project files</a> (ZIP)
+        - this includes Eagle board file, schematic, BOM (with DigiKey
+        parts), Gerbers, Notes.txt (a change list), and assembly sheets</li>
+    </ul>
+    <h3>EBB Version 2.2 Files:</h3>
+    <ul>
+      <li><a href="EBB/EBB_v22/EBB_v22_sch.pdf">Schematic</a> (PDF)</li>
+      <li><a href="EBB/EBB_v22/EBB_v22_brd.pdf">Board Layout</a> (PDF)</li>
+      <li><a href="EBB/EBB_v22/EBB_v22.zip">All project files</a> (ZIP)
+        - this includes Eagle board file, schematic, BOM (with DigiKey
+        parts), Gerbers, Notes.txt (a change list), and assembly sheets</li>
+    </ul>
+    <h3>EBB Version 2.3 Files:</h3>
+    <ul>
+      <li><a href="EBB/EBB_v23/EBB_v23_sch.pdf">Schematic</a> (PDF)</li>
+      <li><a href="EBB/EBB_v23/EBB_v23_brd.pdf">Board Layout</a> (PDF)</li>
+      <li><a href="EBB/EBB_v23/EBB_v23.zip">All project files</a> (ZIP)
+        - this includes Eagle board file, schematic, BOM (with DigiKey
+        parts), Gerbers, Notes.txt (a change list), and assembly sheets</li>
+    </ul>
+    <h3>EBB Version 2.4 Files:</h3>
+    <ul>
+      This version was created by SparkFun from the v2.3 EBB version. A complete 
+      set of files is not available, but schematic and board files are.
+      <li><a href="https://github.com/sparkfun/EiBotBoard/tree/V_2.4-Prototype">SparkFun EBB v2.4 GitHub repo</a></li>
+      <li><a href="EBB/EBB_v24/EBB_v24_brd.pdf">Board Layout</a> (PDF)</li>
+      <li><a href="EBB/EBB_v24/EBB_v24_sch.pdf">Schematic</a> (PDF)</li>
+    </ul>
+    <h3>EBB Version 2.5 Files:</h3>
+    <ul>
+      <li><a href="EBB/EBB_v25/EiBotBoard-v25_sch.pdf">Schematic</a> (PDF)</li>
+      <li><a href="EBB/EBB_v25/EiBotBoard-v25_brd.pdf">Board Layout</a> (PDF)</li>
+      <li><a href="EBB/EBB_v25/EBB_v25.zip">All project files</a> (ZIP)
+        - this includes Eagle board file, schematic, BOM (with DigiKey
+        parts), Gerbers, Notes.txt (a change list), and assembly sheets</li>
+    </ul>
+    <h3>EBB Version 2.6 Files:</h3>
+    <ul>
+      <li><a href="EBB/EBB_v26/EiBotBoard-v26_sch.pdf">Schematic</a> (PDF)</li>
+      <li><a href="EBB/EBB_v26/EiBotBoard-v26_brd.pdf">Board Layout</a> (PDF)</li>
+      <li><a href="EBB/EBB_v26/EBB_v26.zip">All project files</a> (ZIP)
+        - this includes Eagle board file, schematic, BOM (with DigiKey
+        parts), Gerbers, Notes.txt (a change list), and assembly sheets</li>
+    </ul>
+    <h3>EBB Version 2.7 Files:</h3>
+    <ul>
+      <li><a href="EBB/EBB_v27/EiBotBoard-v27_sch.pdf">Schematic</a> (PDF)</li>
+      <li><a href="EBB/EBB_v27/EiBotBoard-v27_brd.pdf">Board Layout</a> (PDF)</li>
+      <li><a href="EBB/EBB_v27/EBB_v27.zip">All project files</a> (ZIP)
+        - this includes Eagle board file, schematic, BOM (with DigiKey
+        parts), Gerbers, Notes.txt (a change list), and assembly sheets</li>
+    </ul>
+
+    <h2>Software</h2>
+
+    <p>
+        The EiBotBoard Firmware supports all of the standard UBW commands,
+        as well as several extra commands that are useful for plotting 2D
+        images using stepper motors. These are all detailed on the EBB
+        Commands page. The EBB comes standard with a USB bootloader (HID
+        based so no drivers are necessary for bootloader mode) which allows
+        for unlimited updating of the firmware using only a USB connection.
+        The standard EBB firmware enumerates as a CDC device (i.e. virtual
+        serial port) so any PC can interface with the EBB using any
+        language.
+    </p>
+    <p>
+        After you buy an EBB, you may want
+        to update to the most recent firmware version to get the newest
+        features. (See the 
+        <a href="http://evil-mad.github.io/EggBot/EBBReleaseNotes.html">
+            Release Notes
+        </a>
+        page.)
+    </p>
+    
+    <h3>EiBotBoard Firmware Latest Version Source:</h3>
+    <ul>
+      <li>
+        <a href="https://github.com/evil-mad/EggBot">
+            EggBot GitHub repo
+        </a>
+      </li>
+    </ul>
+    
+    <h3>EiBotBoard Firmware Version 2.5.4 Pre-built HEX File:</h3>
+    <ul>
+      <li>
+        <a href="https://github.com/evil-mad/EggBot/blob/master/EBB_firmware/Releases/app/EBF_v254.zip?raw=true">
+            EBB Firmware Version 2.5.4 HEX files
+        </a>
+        (for all board versions 1.3 and above, which is almost all EBBs ever built - ZIP)
+      </li>
+    </ul>
+    
+    <h3>LED Signals:</h3>
+    <p>
+        The two LEDs on the EBB communicate different states of the
+        firmware. You can use the LED blinking pattern to figure out what's
+        going on (sometimes).
+    </p>
+    <p>
+        <table style="text-align: left; width: 50%;" border="1" cellpadding="2" cellspacing="2">
+          <tbody>
+            <tr>
+              <td style="vertical-align: top;">
+                <br>
+              </td>
+              <td style="vertical-align: top; font-weight: bold;">
+                <p>USR LED (Red)</p>
+              </td>
+              <td style="vertical-align: top; font-weight: bold;">
+                <p>USB LED (Green)</p>
+              </td>
+            </tr>
+            <tr>
+              <td style="vertical-align: top;">
+                <p>EBB enumerated and communicating with PC over USB</p>
+              </td>
+              <td style="vertical-align: top;">
+                <p>Off</p>
+              </td>
+              <td style="vertical-align: top;">
+                <p>Slow Flash</p>
+              </td>
+            </tr>
+            <tr>
+              <td style="vertical-align: top;">
+                <p>EBB not enumerated with PC</p>
+              </td>
+              <td style="vertical-align: top;">
+                <p>Off</p>
+              </td>
+              <td style="vertical-align: top;">
+                <p>Fast Flash</p>
+              </td>
+            </tr>
+            <tr>
+              <td style="vertical-align: top;">
+                <p>USB HID Bootloader mode active</p>
+              </td>
+              <td style="vertical-align: top;">
+                <p>Alternating w/USB</p>
+              </td>
+              <td style="vertical-align: top;">
+                <p>Alternating w/USR</p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+    </p>
+    <br>
+    
+    
+    <h2>Older Versions of Hardware and Software</h2>
+    
+    <p>
+        There have been a number of versions of EBB hardware and software
+        (firmware). Please see <a href="EBBHistory.html">this page</a>
+        describing the various versions. Only the latest version of each is
+        documented on this main page.
+    </p>
+
+
+    <h2>EBB Firmware Driver for Windows (XP, Vista 32/64, Windows 7 32/64)</h2>
+    
+    <p>
+        The following zip file contains just the EBB driver INF file. This
+        INF file must be used the first time the EBB is plugged into a
+        Windows computer. It tells Windows what driver to use with the
+        board, and it contains unique strings that identify the board as an
+        EiBotBoard from SchmalzHaus.
+    </p>
+    <p>
+        This INF file will work for all versions of EBB Firmware. However,
+        any version of EBB Firmware 1.8.2 <span style="font-weight: bold;">and
+        above</span> MUST use this custom version of the INF file, not the
+        generic one that comes from Microchip.
+    </p>
+    <ul>
+      <li><a href="EBF/EBB_inf.zip">EBB_inf.zip</a></li>
+    </ul>
+    <p>
+        If you don't want to mess with a raw INF file, here is a simple
+        installer created by Microchip to install the EBB driver on any
+        Windows system. There are two ways you can download it - as a zip
+        file or directly as an executable.
+    </p>
+    <ul>
+      <li>
+        <a href="https://github.com/evil-mad/EggBot/releases/download/2.7.1/UBWDriverInstaller_v20.exe">https://github.com/evil-mad/EggBot/releases/download/2.7.1/UBWDriverInstaller_v20.exe</a>
+      </li>
+      <li>
+        <a href="https://github.com/evil-mad/EggBot/releases/download/2.7.1/UBWDriverInstaller_v20.zip">https://github.com/evil-mad/EggBot/releases/download/2.7.1/UBWDriverInstaller_v20.zip</a>
+      </li>
+    </ul>
+    <p>
+        NOTE: This installer REQUIRED the .NET runtime framework v3.5 (v4
+        does not work for some reason). Most Windows machines have this
+        already. If you get an error when trying to run the installer, you
+        can download .Net 3.5 from 
+        <a href="http://www.microsoft.com/download/en/details.aspx?id=22">here</a>.
+    </p>
+    
+    
+    <h2>EBB Bootloader</h2>
+    
+    <p>
+        If you ever build your own EBB, or if you need to re-program a part
+        from scratch, you'll need the bootloader images. Please see the 
+        <a href="EBBBootloader.html">EiBotBoard Bootloader information page</a>
+        for hex files and more.
+    </p>
+
+
+    <h2>Updating Your Firmware</h2>
+
+    <h3>
+        <p>
+            By far the simplest way to update the firmware on your EBB is to follow the 
+            fantastic instructions that EMSL has posted here:
+        </p>
+        <a href="https://wiki.evilmadscientist.com/Updating_EBB_firmware">https://wiki.evilmadscientist.com/Updating_EBB_firmware</a>
+    </h3>
+    
+    <p>
+        Instead, if you want to update manually, you can follow these
+        older instructions:
+    </p>
+    <p>
+        You'll need a Windows PC (XP, Vista and Windows 7 supported, I
+        believe), a USB cable, a power supply for your EBB (for boards
+        earlier than v1.3), the latest version of .Net (if you get an error
+        while bootloading, updating your version of the .Net runtime may be
+        the cause) a HEX file from above that you want to program into your
+        EBB, and this program.
+    </p>
+    <ul>
+      <li>
+        Power on your EBB with the power supply, and connect the USB
+        cable to your PC
+      </li>
+      <li>
+        Press and hold the PRG button while pressing and releasing the
+        RST button, then release the PRG button
+      </li>
+      <li>
+        Run the <a href="EBB_BL/HIDBootLoader.zip">HIDBootloader.exe</a>
+        program
+      </li>
+      <li>
+        You should see it says "Device attached."
+      </li>
+      <li>
+        Click Open Hex File, and select the HEX file you want to
+        download
+      </li>
+      <li>
+        Click Program/Verify
+      </li>
+      <li>
+        When programming is complete, click Reset Device
+      </li>
+      <li>
+        When the Inkscape extension finds your EBB, it will tell you
+        the firmware version number, so you can verify that the new
+        version is detected properly
+      </li>
+    </ul>
+    <p>
+        If you want to update your firmware and you're on Mac OS or Linux
+        (or Windows too) you can follow the instructions <a
+          href="http://wiki.evilmadscience.com/Updating_EBB_firmware">here</a>
+        to use a command line tool to perform the update.
+    </p>
+    
+    <p></p>
+    <div style="text-align: center;">
+        <p>
+            Questions? E-mail me at brian@schmalzhaus.com
+        </p>
+    </div>
+    <p></p>
+    
+    <div style="text-align: center;">
+        <p>
+            <a rel="license" href="http://creativecommons.org/licenses/by/3.0/us/">
+                <img
+                    alt="Creative Commons License" src="Images/88x31.png"
+                    style="border: 0px solid ; width: 88px; height: 31px;">
+            </a>
+        </p>
+        <p>
+            <span xmlns:dc="http://purl.org/dc/elements/1.1/" property="dc:title">
+                EggBotBoard
+            </span> 
+            by 
+            <a xmlns:cc="http://creativecommons.org/ns#"
+                href="http://www.schmalzhaus.com/EBB"
+                property="cc:attributionName" rel="cc:attributionURL">
+                Brian Schmalz
+            </a> 
+            is licensed under a 
+            <a rel="license" href="http://creativecommons.org/licenses/by/3.0/us/">
+                Creative Commons Attribution 3.0 United States License
+            </a>.
+        </p>
+        <p>
+            Based on a work at 
+            <a xmlns:dc="http://purl.org/dc/elements/1.1/" href="http:///www.schmalzhaus.com/EBB" rel="dc:source">
+                www.schmalzhaus.com/EBB
+            </a>.
+        </p>
+        <p>
+            Permissions beyond the scope of this license may be available at 
+            <a xmlns:cc="http://creativecommons.org/ns#" href="http://www.schmalzhaus.com/EBB" rel="cc:morePermissions">
+                www.schmalzhaus.com/EBB
+            </a>.
+        </p>
+    </div>
+    <br>
+  </body>
+</html>

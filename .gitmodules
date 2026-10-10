@@ -1,0 +1,9 @@
+[submodule "vendor/axidraw"]
+	path = vendor/axidraw
+	url = https://github.com/evil-mad/axidraw.git
+[submodule "vendor/plotink"]
+	path = vendor/plotink
+	url = https://github.com/evil-mad/plotink.git
+[submodule "vendor/EggBot"]
+	path = vendor/EggBot
+	url = https://github.com/evil-mad/EggBot.git

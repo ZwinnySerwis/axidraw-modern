@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html class="client-nojs" lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8"/>
+<title>Updating EBB firmware - Evil Mad Scientist Wiki</title>
+<script>document.documentElement.className = document.documentElement.className.replace( /(^|\s)client-nojs(\s|$)/, "$1client-js$2" );</script>
+<script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"Updating_EBB_firmware","wgTitle":"Updating EBB firmware","wgCurRevisionId":4111,"wgRevisionId":4111,"wgArticleId":25,"wgIsArticle":true,"wgIsRedirect":false,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":[],"wgBreakFrames":false,"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"Updating_EBB_firmware","wgRelevantArticleId":25,"wgRequestId":"f9bd55cd329646bb4565be78","wgIsProbablyEditable":true,"wgRestrictionEdit":[],"wgRestrictionMove":[]});mw.loader.state({"site.styles":"ready","noscript":"ready","user.styles":"ready","user.cssprefs":"ready","user":"ready","user.options":"loading","user.tokens":"loading","mediawiki.legacy.shared":"ready","mediawiki.legacy.commonPrint":"ready","mediawiki.sectionAnchor":"ready","mediawiki.skinning.interface":"ready","skins.vector.styles":"ready"});mw.loader.implement("user.options@0j3lz3q",function($,jQuery,require,module){mw.user.options.set({"variant":"en"});});mw.loader.implement("user.tokens@1txach7",function ( $, jQuery, require, module ) {
+mw.user.tokens.set({"editToken":"+\\","patrolToken":"+\\","watchToken":"+\\","csrfToken":"+\\"});/*@nomin*/;
+
+});mw.loader.load(["mediawiki.page.startup","skins.vector.js"]);});</script>
+<link rel="stylesheet" href="/load.php?debug=false&amp;lang=en&amp;modules=mediawiki.legacy.commonPrint%2Cshared%7Cmediawiki.sectionAnchor%7Cmediawiki.skinning.interface%7Cskins.vector.styles&amp;only=styles&amp;skin=vector"/>
+<script async="" src="/load.php?debug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;skin=vector"></script>
+<meta name="ResourceLoaderDynamicStyles" content=""/>
+<link rel="stylesheet" href="/load.php?debug=false&amp;lang=en&amp;modules=site.styles&amp;only=styles&amp;skin=vector"/>
+<meta name="generator" content="MediaWiki 1.28.2"/>
+<link rel="alternate" type="application/x-wiki" title="Edit" href="/index.php?title=Updating_EBB_firmware&amp;action=edit"/>
+<link rel="edit" title="Edit" href="/index.php?title=Updating_EBB_firmware&amp;action=edit"/>
+<link rel="shortcut icon" href="/favicon.ico"/>
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="Evil Mad Scientist Wiki (en)"/>
+<link rel="EditURI" type="application/rsd+xml" href="https://wiki.evilmadscientist.com/api.php?action=rsd"/>
+<link rel="copyright" href="http://www.gnu.org/copyleft/fdl.html"/>
+<link rel="alternate" type="application/atom+xml" title="Evil Mad Scientist Wiki Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom"/>
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Updating_EBB_firmware rootpage-Updating_EBB_firmware skin-vector action-view">		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<div id="content" class="mw-body" role="main">
+			<a id="top"></a>
+
+						<div class="mw-indicators">
+</div>
+			<h1 id="firstHeading" class="firstHeading" lang="en">Updating EBB firmware</h1>
+									<div id="bodyContent" class="mw-body-content">
+									<div id="siteSub">From Evil Mad Scientist Wiki</div>
+								<div id="contentSub"></div>
+												<div id="jump-to-nav" class="mw-jump">
+					Jump to:					<a href="#mw-head">navigation</a>, 					<a href="#p-search">search</a>
+				</div>
+				<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Updater_applications_for_Mac_and_Windows"><span class="tocnumber">1.1</span> <span class="toctext">Updater applications for Mac and Windows</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#Manual_updating_with_mphidflash"><span class="tocnumber">1.2</span> <span class="toctext">Manual updating with mphidflash</span></a>
+<ul>
+<li class="toclevel-3 tocsection-4"><a href="#Procedure"><span class="tocnumber">1.2.1</span> <span class="toctext">Procedure</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+
+<h1><span class="mw-headline" id="Introduction">Introduction</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="/index.php?title=Updating_EBB_firmware&amp;action=edit&amp;section=1" title="Edit section: Introduction">edit</a><span class="mw-editsection-bracket">]</span></span></h1>
+<p>This page gives instructions on updating the EBB (EiBotBoard) firmware, which may be found on your <a href="/AxiDraw" title="AxiDraw">AxiDraw</a>, <a href="/EggBot" class="mw-redirect" title="EggBot">EggBot</a>, <a href="/WaterColorBot" title="WaterColorBot">WaterColorBot</a>, or any other machine using the EBB as its controller. In most cases when the firmware is compatible with the current version of the software that you are using, no update is necessary. However, there may be cases where updating allows you to take advantage of new features in the Inkscape extension, bug fixes, or new commands available.
+</p><p><b>Important caution 1:</b> Updating your firmware will reset the EBB to its default state. If you are using a custom USB "nickname", for example with the AxiDraw Naming utility, that nickname will be reset (erased) when updating firmware.
+</p><p><b>Important caution 2:</b> If you are experiencing difficulty connecting to your machine over USB, then please <b>do not</b> update its firmware until those issues are resolved.
+</p><p>The EBB Firmware is open source software distributed under the <a rel="nofollow" class="external text" href="https://creativecommons.org/licenses/by/3.0/us/">CC BY 3.0 US</a> license, with attributions described in the <a href="/EBB_Firmware_License" title="EBB Firmware License">EBB Firmware License</a> (similar to 3-Clause BSD).
+</p>
+<h2><span class="mw-headline" id="Updater_applications_for_Mac_and_Windows">Updater applications for Mac and Windows</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="/index.php?title=Updating_EBB_firmware&amp;action=edit&amp;section=2" title="Edit section: Updater applications for Mac and Windows">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<p>For most users on Mac and Windows, the most straightforward way to update is to run one of our ready-built applications that updates the firmware to the latest major release. 
+</p><p>As of this writing, that latest major release is version 2.8.1, and firmware updaters are available to download <a rel="nofollow" class="external text" href="https://cdn.evilmadscientist.com/dl/eb/public/UpdateEBB_281_Mac.zip">here for Mac</a> and <a rel="nofollow" class="external text" href="https://cdn.evilmadscientist.com/dl/eb/public/Firmware_v281_Win.zip">here for Windows</a>.
+</p><p>For either platform, connect the EBB to your computer via USB. Close any program that may be trying to communicate with the EBB then run the application, which will automatically update the firmware.
+</p><p>For Linux, or if you need to update to a different specific version of the firmware, please follow the "Manual" updating procedures in the next section.
+</p><p><br />
+</p>
+<h2><span class="mw-headline" id="Manual_updating_with_mphidflash">Manual updating with mphidflash</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="/index.php?title=Updating_EBB_firmware&amp;action=edit&amp;section=3" title="Edit section: Manual updating with mphidflash">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<p>Besides the automatic updater applications, there are three different tools you can use to update your EBB firmware - a hardware programmer (like the PICKit2 from Microchip), Microchip's HID Bootloader application (which only runs under Windows), or the command-line mphidflash application.
+</p><p>Because one of the primary goals of the EBB ecosystem is to support all three OS platforms (Windows, Linux, Mac OS), this page will discuss the use of mphidflash. This application is cross platform and works identically on all three OSes.  
+</p><p>You will need to be comfortable with a very small amount of command line work to use this tool.
+</p><p>Note for Linux users: The Linux version of mphidflash was developed and tested under Ubuntu.  Other distributions may have additional dependencies. Additionally, this method requires an "x86" type architecture; it does not currently run on Raspberry Pi.
+</p><p><br />
+</p>
+<h3><span class="mw-headline" id="Procedure">Procedure</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="/index.php?title=Updating_EBB_firmware&amp;action=edit&amp;section=4" title="Edit section: Procedure">edit</a><span class="mw-editsection-bracket">]</span></span></h3>
+<ul><li> Download the latest version of mphidflash, version 1.4 or newer. It can be found in the <a rel="nofollow" class="external text" href="https://github.com/EmbeddedMan/mphidflash">mphidflash repository</a>. There is a single zip file download that has all of the source code plus a directory (or set of directories) with executables in them, one for each OS. Unpack the zip file.</li>
+<li> Some hints about installing this on Ubuntu can be found <a rel="nofollow" class="external text" href="http://www.willhackforsushi.com/?p=572">here</a>.</li>
+<li> Open a command shell (terminal window) and navigate (cd) to the directory with the mphidflash executable for your OS. (For Windows users, do Start-&gt;Run then type in cmd and click OK.)</li>
+<li> To test that the software is ready and working, try it out as follows:</li></ul>
+<dl><dd>For Linux or Mac OS type</dd></dl>
+<dl><dd><dl><dd><code>./mphidflash -h</code></dd></dl></dd></dl>
+<dl><dd>For Windows type </dd></dl>
+<dl><dd><dl><dd><code>mphidflash -h</code></dd></dl></dd></dl>
+<dl><dd> You should see the help text for mphidflash. This shows that you can run the application properly.</dd></dl>
+<ul><li> Download the EBB firmware. Easy link <a rel="nofollow" class="external text" href="https://cdn.evilmadscientist.com/dl/eb/public/Firmware_v281_raw.zip">here</a>. </li>
+<li> To "manually" locate an EBB firmware version, look in the <a rel="nofollow" class="external text" href="https://github.com/evil-mad/EggBot">Eggbot Repository</a> as "EBB_Firmware." Download the repository contents by clicking the "Download ZIP" link.  Identify the particular EBB firmware "hex file" that you want to program onto your board.  The EiBotBoard Firmware ZIP archive contains several slightly different versions: one for EBB version 1.1 (which shipped with clear-chassis kits in 2009), one for EBB 1.2, and one for EBB version 1.3 and higher-- correct for all more recent versions. If in doubt, use the "EBB 1.3" versions.</li>
+<li> Copy the hex file to the folder that contains the mphidflash exectuable for your OS.</li>
+<li> Connect your EBB to the PC with a USB cable. Plug in power to the EBB.</li>
+<li> Put your EBB in 'bootloader mode' by doing one of the following:
+<ul><li> Press the PRG button and hold it down while you press and release the RST button. Then release the PRG button. </li>
+<li> If you are using the Inkscape based AxiDraw software, use the "Enter EBB Bootloader mode" option from the Manual tab of AxiDraw Control</li>
+<li> If you are using the CLI based AxiDraw software, use the corresponding <a rel="nofollow" class="external text" href="https://axidraw.com/doc/cli_api/#bootload">bootload</a> option.</li></ul></li>
+<li> Confirm that your EBB is in bootload mode by looking at the red and green LEDs by the USB connector. They should be blinking back and forth pretty fast.</li>
+<li> From the command line, type (for Linux or Mac)</li></ul>
+<dl><dd><dl><dd><code>./mphidflash -w EBF_v265_BL.unified.hex -r</code></dd></dl></dd></dl>
+<dl><dd>For Windows type </dd></dl>
+<dl><dd><dl><dd><code>mphidflash -w EBF_v265_BL.unified.hex -r</code></dd></dl></dd></dl>
+<dl><dd>Where "EBF_v265_BL.unified.hex" is the name of the hex file that you want to program.</dd></dl>
+<ul><li> Confirm that you get a long series of dots "." on the command line, and that there are no errors. Your EBB will reset itself at the end of the programming process (that's what the '-r' does).</li>
+<li> On Windows, if you have an older firmware and are updating to a relatively newer one, Windows may ask you to find a driver for the device when the EBB resets. You can install the proper windows "INF" driver by downloading and running the EggBot installer for Windows, which Installs the USB driver (the "UBW" driver) from <a rel="nofollow" class="external text" href="https://github.com/evil-mad/EggBot/releases">GitHub</a>. If Windows says the drivers are unsigned and do you want to continue, just allow it to install them.</li>
+<li> After you've updated your EBB with fresh firmware, you can check to see that the new firmware was successfully programmed by opening Inkscape, going to Extensions-&gt;Eggbot..., click on the Manual tab, select "Check EBB Version" from the drop down list, and click Apply. In the little dialog box that pops up when this process is finished you should see something like "Firmware Version 2.0.2" or whatever your version number is.</li></ul>
+
+<!-- 
+NewPP limit report
+Cached time: 20260302192801
+Cache expiry: 86400
+Dynamic content: false
+CPU time usage: 0.002 seconds
+Real time usage: 0.002 seconds
+Preprocessor visited node count: 14/1000000
+Preprocessor generated node count: 20/1000000
+Post‐expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+-->
+
+<!-- 
+Transclusion expansion time report (%,ms,calls,template)
+100.00%    0.000      1 - -total
+-->
+
+<!-- Saved in parser cache with key emswiki:pcache:idhash:25-0!*!0!!en!*!* and timestamp 20260302192801 and revision id 4111
+ -->
+</div>					<div class="printfooter">
+						Retrieved from "<a dir="ltr" href="https://wiki.evilmadscientist.com/index.php?title=Updating_EBB_firmware&amp;oldid=4111">https://wiki.evilmadscientist.com/index.php?title=Updating_EBB_firmware&amp;oldid=4111</a>"					</div>
+				<div id="catlinks" class="catlinks catlinks-allhidden" data-mw="interface"></div>				<div class="visualClear"></div>
+							</div>
+		</div>
+		<div id="mw-navigation">
+			<h2>Navigation menu</h2>
+
+			<div id="mw-head">
+									<div id="p-personal" role="navigation" class="" aria-labelledby="p-personal-label">
+						<h3 id="p-personal-label">Personal tools</h3>
+						<ul>
+							<li id="pt-anonuserpage">Not logged in</li><li id="pt-anontalk"><a href="/Special:MyTalk" title="Discussion about edits from this IP address [n]" accesskey="n">Talk</a></li><li id="pt-anoncontribs"><a href="/Special:MyContributions" title="A list of edits made from this IP address [y]" accesskey="y">Contributions</a></li><li id="pt-login"><a href="/index.php?title=Special:UserLogin&amp;returnto=Updating+EBB+firmware" title="You are encouraged to log in; however, it is not mandatory [o]" accesskey="o">Log in</a></li>						</ul>
+					</div>
+									<div id="left-navigation">
+										<div id="p-namespaces" role="navigation" class="vectorTabs" aria-labelledby="p-namespaces-label">
+						<h3 id="p-namespaces-label">Namespaces</h3>
+						<ul>
+															<li  id="ca-nstab-main" class="selected"><span><a href="/Updating_EBB_firmware"  title="View the content page [c]" accesskey="c">Page</a></span></li>
+															<li  id="ca-talk"><span><a href="/Talk:Updating_EBB_firmware"  title="Discussion about the content page [t]" accesskey="t" rel="discussion">Discussion</a></span></li>
+													</ul>
+					</div>
+										<div id="p-variants" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-variants-label">
+												<h3 id="p-variants-label">
+							<span>Variants</span><a href="#"></a>
+						</h3>
+
+						<div class="menu">
+							<ul>
+															</ul>
+						</div>
+					</div>
+									</div>
+				<div id="right-navigation">
+										<div id="p-views" role="navigation" class="vectorTabs" aria-labelledby="p-views-label">
+						<h3 id="p-views-label">Views</h3>
+						<ul>
+															<li id="ca-view" class="selected"><span><a href="/Updating_EBB_firmware" >Read</a></span></li>
+															<li id="ca-edit"><span><a href="/index.php?title=Updating_EBB_firmware&amp;action=edit"  title="Edit this page [e]" accesskey="e">Edit</a></span></li>
+															<li id="ca-history" class="collapsible"><span><a href="/index.php?title=Updating_EBB_firmware&amp;action=history"  title="Past revisions of this page [h]" accesskey="h">View history</a></span></li>
+													</ul>
+					</div>
+										<div id="p-cactions" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-cactions-label">
+						<h3 id="p-cactions-label"><span>More</span><a href="#"></a></h3>
+
+						<div class="menu">
+							<ul>
+															</ul>
+						</div>
+					</div>
+										<div id="p-search" role="search">
+						<h3>
+							<label for="searchInput">Search</label>
+						</h3>
+
+						<form action="/index.php" id="searchform">
+							<div id="simpleSearch">
+							<input type="search" name="search" placeholder="Search Evil Mad Scientist Wiki" title="Search Evil Mad Scientist Wiki [f]" accesskey="f" id="searchInput"/><input type="hidden" value="Special:Search" name="title"/><input type="submit" name="fulltext" value="Search" title="Search the pages for this text" id="mw-searchButton" class="searchButton mw-fallbackSearchButton"/><input type="submit" name="go" value="Go" title="Go to a page with this exact name if it exists" id="searchButton" class="searchButton"/>							</div>
+						</form>
+					</div>
+									</div>
+			</div>
+			<div id="mw-panel">
+				<div id="p-logo" role="banner"><a class="mw-wiki-logo" href="/Main_Page"  title="Visit the main page"></a></div>
+						<div class="portal" role="navigation" id='p-Project_Documentation' aria-labelledby='p-Project_Documentation-label'>
+			<h3 id='p-Project_Documentation-label'>Project Documentation</h3>
+
+			<div class="body">
+									<ul>
+						<li id="n-Alpha-Clock-Five"><a href="/Alpha_Clock_Five">Alpha Clock Five</a></li><li id="n-Art-Controller"><a href="/Art_Controller">Art Controller</a></li><li id="n-AYAB-Interface"><a href="/AYAB_Interface">AYAB Interface</a></li><li id="n-AxiDraw"><a href="/AxiDraw">AxiDraw</a></li><li id="n-The-Bulbdial-Clock-Kit"><a href="/Bulbdial">The Bulbdial Clock Kit</a></li><li id="n-Diavolino"><a href="/Diavolino">Diavolino</a></li><li id="n-EggBot"><a href="/The_Original_Egg-Bot_Kit">EggBot</a></li><li id="n-Googly-Eye-Shield"><a href="/Googly_Shield">Googly Eye Shield</a></li><li id="n-Interactive-Game-of-Life"><a href="/Life">Interactive Game of Life</a></li><li id="n-ISP-Shield"><a href="/ISP_Shield">ISP Shield</a></li><li id="n-Larson-Scanner"><a href="/Larson_Scanner">Larson Scanner</a></li><li id="n-LED-Menorah"><a href="/Deluxe_LED_Menorah_Kit">LED Menorah</a></li><li id="n-Meggy-Jr-RGB"><a href="/Meggy_Jr_RGB">Meggy Jr RGB</a></li><li id="n-Octolively"><a href="/Octolively">Octolively</a></li><li id="n-Peggy-2-and-2LE"><a href="/Peggy_2">Peggy 2 and 2LE</a></li><li id="n-Simple-Relay-Shield"><a href="/Simple_Relay_Shield">Simple Relay Shield</a></li><li id="n-Snap-O-Lantern"><a href="/Snap-O-Lantern">Snap-O-Lantern</a></li><li id="n-StippleGen-Software"><a href="/StippleGen">StippleGen Software</a></li><li id="n-Discrete-555-kits"><a href="/555">Discrete 555 kits</a></li><li id="n-Discrete-741-kits"><a href="/741">Discrete 741 kits</a></li><li id="n-WaterColorBot"><a href="/WaterColorBot">WaterColorBot</a></li>					</ul>
+							</div>
+		</div>
+			<div class="portal" role="navigation" id='p-navigation' aria-labelledby='p-navigation-label'>
+			<h3 id='p-navigation-label'>Navigation</h3>
+
+			<div class="body">
+									<ul>
+						<li id="n-mainpage-description"><a href="/Main_Page" title="Visit the main page [z]" accesskey="z">Main page</a></li><li id="n-recentchanges"><a href="/Special:RecentChanges" title="A list of recent changes in the wiki [r]" accesskey="r">Recent changes</a></li><li id="n-Evil-Mad-Science-shop"><a href="http://evilmadscience.com/" rel="nofollow">Evil Mad Science shop</a></li><li id="n-Evil-Mad-Scientist-blog"><a href="http://www.evilmadscientist.com/" rel="nofollow">Evil Mad Scientist blog</a></li><li id="n-Wiki-help"><a href="http://www.mediawiki.org/wiki/Help:Contents">Wiki help</a></li>					</ul>
+							</div>
+		</div>
+			<div class="portal" role="navigation" id='p-tb' aria-labelledby='p-tb-label'>
+			<h3 id='p-tb-label'>Tools</h3>
+
+			<div class="body">
+									<ul>
+						<li id="t-whatlinkshere"><a href="/Special:WhatLinksHere/Updating_EBB_firmware" title="A list of all wiki pages that link here [j]" accesskey="j">What links here</a></li><li id="t-recentchangeslinked"><a href="/Special:RecentChangesLinked/Updating_EBB_firmware" rel="nofollow" title="Recent changes in pages linked from this page [k]" accesskey="k">Related changes</a></li><li id="t-specialpages"><a href="/Special:SpecialPages" title="A list of all special pages [q]" accesskey="q">Special pages</a></li><li id="t-print"><a href="/index.php?title=Updating_EBB_firmware&amp;printable=yes" rel="alternate" title="Printable version of this page [p]" accesskey="p">Printable version</a></li><li id="t-permalink"><a href="/index.php?title=Updating_EBB_firmware&amp;oldid=4111" title="Permanent link to this revision of the page">Permanent link</a></li><li id="t-info"><a href="/index.php?title=Updating_EBB_firmware&amp;action=info" title="More information about this page">Page information</a></li>					</ul>
+							</div>
+		</div>
+				</div>
+		</div>
+		<div id="footer" role="contentinfo">
+							<ul id="footer-info">
+											<li id="footer-info-lastmod"> This page was last modified on 7 January 2024, at 14:20.</li>
+											<li id="footer-info-copyright">Content is available under <a class="external" rel="nofollow" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.3</a> unless otherwise noted.</li>
+									</ul>
+							<ul id="footer-places">
+											<li id="footer-places-privacy"><a href="/Evil_Mad_Scientist_Wiki:Privacy_policy" title="Evil Mad Scientist Wiki:Privacy policy">Privacy policy</a></li>
+											<li id="footer-places-about"><a href="/Evil_Mad_Scientist_Wiki:About" title="Evil Mad Scientist Wiki:About">About Evil Mad Scientist Wiki</a></li>
+											<li id="footer-places-disclaimer"><a href="/Evil_Mad_Scientist_Wiki:General_disclaimer" title="Evil Mad Scientist Wiki:General disclaimer">Disclaimers</a></li>
+									</ul>
+										<ul id="footer-icons" class="noprint">
+											<li id="footer-copyrightico">
+							<a href="http://www.gnu.org/copyleft/fdl.html"><img src="/resources/assets/licenses/gnu-fdl.png" alt="GNU Free Documentation License 1.3" width="88" height="31"/></a>						</li>
+											<li id="footer-poweredbyico">
+							<a href="//www.mediawiki.org/"><img src="/resources/assets/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="/resources/assets/poweredby_mediawiki_132x47.png 1.5x, /resources/assets/poweredby_mediawiki_176x62.png 2x" width="88" height="31"/></a>						</li>
+									</ul>
+						<div style="clear:both"></div>
+		</div>
+		<script>(window.RLQ=window.RLQ||[]).push(function(){mw.loader.load(["mediawiki.toc","mediawiki.action.view.postEdit","site","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.searchSuggest"]);});</script><script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgBackendResponseTime":30});});</script>
+	</body>
+<!-- Cached 20260302192801 -->
+</html>

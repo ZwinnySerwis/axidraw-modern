@@ -1,0 +1,32 @@
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Firmware build
+firmware/build/
+firmware/.pico-sdk/
+*.uf2
+*.elf
+*.bin
+*.hex
+*.map
+*.dis
+compile_commands.json
+
+# OS / editor
+.DS_Store
+Thumbs.db
+desktop.ini
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Local secrets / notes
+.env
+*.local.md

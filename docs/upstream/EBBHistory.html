@@ -1,0 +1,499 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-N60PBK4LQP');
+    </script>
+    <meta content="text/html; charset=windows-1252"
+      http-equiv="content-type">
+    <title>EBB (EiBotBoard)</title>
+    <meta content="Brian Schmalz" name="author">
+    <meta content="Main page for EiBo Board documentation"
+      name="description">
+  </head>
+  <body>
+    <br>
+    <div style="text-align: center;"><a
+        href="http://www.schmalzhaus.com/"><big><big><span
+              style="font-weight: bold;"><img alt="SchmalzHaus logo"
+                src="Images/SchmalzHaus%20Logo%20Small.png"
+                style="border: 0px solid ; width: 143px; height: 59px;"
+                align="left"></span></big></big></a><big><big><span
+            style="font-weight: bold;"><big>EBB (EiBotBoard) History</big><br>
+          </span><span style="font-weight: bold;"></span></big></big><big><big><span
+            style="font-weight: bold;"><br>
+          </span></big></big></div>
+    <br>
+    <h2>Hardware Versions</h2>
+    <span style="font-weight: bold;"></span><span style="font-weight:
+      bold;">Design files for version 1.1 of EBB (Shipped with original
+      Beta EggBot Kits):</span><br>
+    <ul>
+      <li><a href="v11/EBB_v11_sch.pdf">Schematic (PDF)</a></li>
+      <li><a href="v11/EBB_v11.sch">Eagle schematic</a></li>
+      <li><a href="v11/EBB_v11.brd">Eagle board layout file</a></li>
+      <li><a href="v11/EBB_v11_gerbers.zip">ZIP file of gerbers</a></li>
+      <li><a href="v11/EBB_v11_BOM.xls">BOM (Excel)</a></li>
+      <li><a href="v11/EBB_v11.zip">ZIP file of all of the above</a></li>
+    </ul>
+    <span style="font-weight: bold;"></span><span style="font-weight:
+      bold;"></span>Hardware and Firmware Versions EiBotBoard has had
+    several hardware versions, and also several firmware versions. Here
+    is a list of the hardware (board) versions: (The board is called
+    EBB, the firmware is called EBF - EiBotFirmware)<br>
+    <br>
+    <br>
+    <a href="EBB_Family.jpg"><img alt="Six versions of EBBs" title="Six
+        versions of EBBs" src="Images/EBB_Family.jpg" style="border: 0px
+        solid ; width: 1062px; height: 218px;"></a><br>
+    <h3>EBB v1.0:</h3>
+    <ul>
+      <li>Four channels of stepper driver, with A3967 driver chips</li>
+      <li>Two high current digital outputs (for solenoids, fans, relays,
+        etc.)</li>
+      <li>24 I/O pins, each with power and ground</li>
+      <li>Alternate power input for using some I/Os as RC servo outputs</li>
+      <li>CPU is Microchip PIC18F87J50</li>
+      <li>SPI in and SPI out connectors for daisy-chaining</li>
+      <li>Firmware never completed - showed four channel stepper motion
+        and solenoid output, but not much more than that</li>
+    </ul>
+    <h3>EBB v1.1:</h3>
+    <ul>
+      <li>Two channels of stepper driver, with A3967 driver chips</li>
+      <li>One high current digital output for solenoid on EggBot Beta<br>
+      </li>
+      <li>CPU was either Microchip PIC18F45J50 or 18F46J50 (check for
+        white colored door on SchmalzHaus logo - indicates 46J50)</li>
+      <li>This version was the one that was shipped with the original
+        Beta EggBotKits at Maker Faire 2009</li>
+      <li>Hardware documents for this version</li>
+      <ul>
+        <li><a href="EBB/EBB_v11/EBB_v11_sch.pdf">Schematic (PDF)</a><br>
+        </li>
+        <li><a href="EBB/EBB_v11/EBB_v11_brd.pdf">Board (PDF)</a><br>
+        </li>
+      </ul>
+      <li>Firmware versions:</li>
+      <ul>
+        <li><a href="EBF/EBF_v196/EBFv196_EBBv11.hex">EBF v1.9.6 for EBB
+            v1.1 Hex File</a><br>
+        </li>
+      </ul>
+    </ul>
+    <h3>EBB v1.2:</h3>
+    <ul>
+      <li>Same as EBB v1.1 except:</li>
+      <ul>
+        <li>A4983 driver chips - 2A per phase, but only able to get
+          about 1.2A due to heat dissipation<br>
+        </li>
+        <li>19 I/O pins broken out on left hand edge</li>
+        <li>Four I/O pins used for RC servo output (RB1 is for using
+          EggBot pen-arm operation)</li>
+      </ul>
+      <li>Hardware documents for this version</li>
+      <ul>
+        <li><a href="EBB/EBB_v12/EBB_v12_sch.pdf">Schematic (PDF)</a><br>
+        </li>
+        <li><a href="EBB/EBB_v12/EBB_v12_brd.pdf">Board (PDF)</a><br>
+        </li>
+      </ul>
+      <li>Firmware versions:</li>
+      <ul>
+        <li><a href="EBF/EBF_v196/EBFv196_EBBv12.hex">EBF v1.9.6 for EBB
+            v1.2 Hex File</a><br>
+        </li>
+      </ul>
+    </ul>
+    <h3>EBB v1.3:</h3>
+    <ul>
+      <li>Same as EBB v1.2 except <br>
+      </li>
+      <ul>
+        <li>Added diodes so CPU can be powered from USB connection</li>
+        <li>Minor bug fixes</li>
+        <li>Hardware circuit so CPU can monitor input voltage</li>
+      </ul>
+      <li>Hardware documents for this version</li>
+      <ul>
+        <li><a href="EBB/EBB_v13/EBB_v13_sch.pdf">Schematic (PDF)</a><br>
+        </li>
+        <li><a href="EBB/EBB_v13/EBB_v13_brd.pdf">Board (PDF)</a><br>
+        </li>
+      </ul>
+      <li>Firmware versions:</li>
+      <ul>
+        <li><a href="EBF/EBF_v196/EBFv196_EBBv13.hex">EBF v1.9.6 for EBB
+            v1.3 Hex File</a><br>
+        </li>
+      </ul>
+    </ul>
+    <h3>EBB v1.4:</h3>
+    <ul>
+      <li>Same as EBB v1.3 except</li>
+      <ul>
+        <li>solenoid circuit removed</li>
+        <li>All step/dir/enable nets come out to I/O pins on left (for
+          using external drivers)</li>
+        <li>Added .100" motor headers for motor connector option
+          (optional)</li>
+      </ul>
+      <li>Hardware documents for this version</li>
+      <ul>
+        <li><a href="EBB/EBB_v14/EBB_v14_sch.pdf">Schematic (PDF)</a><br>
+        </li>
+        <li><a href="EBB/EBB_v14/EBB_v14_brd.pdf">Board (PDF)</a></li>
+      </ul>
+      <li>Firmware versions:</li>
+      <ul>
+        <li><a href="EBF/EBF_v196/EBFv196_EBBv13.hex">EBF v1.9.6 for EBB
+            v1.4 Hex File</a><br>
+        </li>
+      </ul>
+    </ul>
+    <h3>EBB v1.5:</h3>
+    <ul>
+      <li>Same as EBB v1.4 except:</li>
+      <ul>
+        <li>Additional RC servo power regulator to give 5V to one or
+          possibly two RC servos</li>
+        <li>Second power connector and diode on bottom of board for
+          optional power source for RC servos</li>
+      </ul>
+      <li>Firmware versions for this board:</li>
+      <ul>
+        <li><a href="EBF/EBF_v196/EBFv196_EBBv13.hex">EBF v1.9.6 for EBB
+            v1.5 Hex File</a></li>
+      </ul>
+      <li>Hardware documents for this version</li>
+      <ul>
+        <li><a href="EBB/EBB_v15/EBB_v15_sch.pdf">Schematic (PDF)</a><br>
+        </li>
+        <li><a href="EBB/EBB_v15/EBB_v15_brd.pdf">Board (PDF)</a><br>
+        </li>
+        <li><a href="EBB/EBB_v15/EBB_v15_BOM.xls">BOM (Excel format)</a></li>
+        <li><a href="EBB/EBB_v15/EBB_v15.zip">ZIP file of everything,
+            Eagle board files, BOM, Gerbers, etc.</a></li>
+      </ul>
+    </ul>
+    <h3>EBB v2.0:</h3>
+    <ul>
+      <li>Same as EBB v1.5 except:</li>
+      <ul>
+        <li>White silk screen to match EggBot Kit <br>
+        </li>
+      </ul>
+      <li>Firmware versions for this board:</li>
+      <ul>
+        <li><a href="EBF/EBF_v196/EBFv196_EBBv13.hex">EBF v1.9.6 for EBB
+            v2.0 Hex File</a></li>
+      </ul>
+      <li>Hardware documents for this version</li>
+      <ul>
+        <li><a href="EBB/EBB_v20/EBB_v20_sch.pdf">Schmatic</a> (PDF)</li>
+        <li><a href="EBB/EBB_v20/EBB_v20_brd.pdf">Board Layout</a> (PDF)</li>
+        <li><a href="EBB/EBB_v20/EBB_v20.zip">All project files</a>
+          (ZIP) - this includes Eagle board file, schematic, BOM (with
+          DigiKey parts), Gerbers, Notes.txt (a change list), and
+          assembly sheets</li>
+        <span style="text-decoration: underline;"> </span>
+      </ul>
+    </ul>
+    <h3>EBB v2.1:</h3>
+    <ul>
+      <li>Same as EBB v2.0 except:</li>
+      <ul>
+        <li>Moved resistor in upper right corner so that screw head
+          won't hit it</li>
+        <li>Increased hole size for screw terminals to 0.56" so other
+          types of screw terminals can be used<br>
+        </li>
+      </ul>
+      <li>Firmware versions for this board:</li>
+      <ul>
+        <li><a href="EBF/EBF_v196/EBFv196_EBBv13.hex">EBF v1.9.6 for EBB
+            v2.1 Hex File</a></li>
+      </ul>
+      <li>Hardware documents for this version</li>
+      <ul>
+        <li><a href="EBB/EBB_v21/EBB_v21_sch.pdf">Schmatic</a> (PDF)</li>
+        <li><a href="EBB/EBB_v21/EBB_v21_brd.pdf">Board Layout</a> (PDF)</li>
+        <li><a href="EBB/EBB_v21/EBB_v21.zip">All project files</a>
+          (ZIP) - this includes Eagle board file, schematic, BOM (with
+          DigiKey parts), Gerbers, Notes.txt (a change list), and
+          assembly sheets</li>
+        <span style="text-decoration: underline;"> </span>
+      </ul>
+    </ul>
+    <h2><br>
+    </h2>
+    <h2>Firmware Versions</h2>
+    <h3>Primary EBB Firmware (EBF)</h3>
+    The firmware versions are not as contiguous as the hardware
+    versions. The firmware is called EBF (Ei Bot Firmware) and due to
+    changes in the hardware, there are different builds of each firmware
+    version for the various hardware versions. At some future point in
+    time, there might only be one firmware version for all boards, and
+    there would be some mechanism for the firmware to know which
+    hardware version it is running on and configure itself
+    appropriately. (probably by using a block of Flash to store
+    configuration information)<br>
+    <br>
+    These firmware versions are based on the UBW code, modified with
+    extra commands for RC servos, stepper motor motion, etc. In order to
+    compile these projects, you will need the free <a
+      href="http://www.microchip.com/MPLAB">MPLAB IDE</a>, the free<a
+      href="http://www.microchip.com/C18"> C18 compiler</a>, and the
+    free <a href="http://www.microchip.com/MAL">Microchip Applications
+      Library</a> (latest USB stack, at least v2.6a) all from Microchip.<br>
+    <ul>
+      <li><a href="EBF/EBF_v18/EBF_v18.zip">EBB v1.8</a> (complete zip
+        of the project files - including projects for v1.0, v1.1, v1.2
+        and v1.3 hardware - note that as far as software is concerned,
+        v1.3 hardware = v1.4 = v1.5 hardware)</li>
+      <li><a href="EBF/EBF_v182/EBF_v182.zip">EBB v1.8.2</a> (complete
+        zip of the project files - including projects for v1.0, v1.1,
+        v1.2 and v1.3 hardware - note that as far as software is
+        concerned, v1.3 hardware = v1.4 = v1.5 hardware)</li>
+      <ul>
+        <li>Changes from 1.8 include updating to new Microchip USB Stack
+          v2.7, new USB PID/VID (and new .ini file - see below), and USB
+          stack now resides inside project folder</li>
+      </ul>
+      <li><a href="http://code.google.com/p/eggbotcode/source/checkout">EBB
+
+
+          v1.9</a> (Google Code Repository)<br>
+      </li>
+      <ul>
+        <li>Changes from 1.8.2:</li>
+        <ul>
+          <li>New QP (Query Pen) command</li>
+          <li>New TP (Toggle Pen) command</li>
+          <ul>
+          </ul>
+        </ul>
+      </ul>
+      <li><a href="http://code.google.com/p/eggbotcode/source/checkout">EBB
+
+
+          v1.9.2</a> (Google Code Repository)<br>
+      </li>
+      <ul>
+        <li>Changes from 1.9:</li>
+        <ul>
+          <li>New SL (Set Layer) command</li>
+          <li>New QL (Query Layer) command</li>
+          <li>New SN (Set Node counter) command</li>
+          <li>New QN (Query Node counter) command</li>
+          <li>New QB (Query Button) command</li>
+        </ul>
+      </ul>
+      <li><a href="http://code.google.com/p/eggbotcode/source/checkout">Version
+
+
+          1.9.5</a></li>
+      <ul>
+        <li>Changes from 1.9.4<br>
+        </li>
+        <ul>
+          <li>New NI, ND and BL commands</li>
+          <li>SN command takes 32 bit parameter value - brought back
+            from previous version</li>
+          <li>QN bug fix to this command</li>
+          <li>Node Count value no longer incremented automatically&nbsp;
+            - only through NI and ND commands<br>
+          </li>
+        </ul>
+      </ul>
+      <li><a href="http://code.google.com/p/eggbotcode/source/checkout">Version
+1.9.6
+
+
+
+
+
+
+
+
+        </a></li>
+      <ul>
+        <li>Only difference from 1.9.5 is that the reset and interrupt
+          vectors below address 0x1000 were removed to make merging with
+          the bootloader easier. No functional differences.</li>
+      </ul>
+      <li>Version 2.0</li>
+      <ul>
+        <li>Hosted at <a
+            href="http://code.google.com/p/eggbotcode/source/checkout">Google
+
+
+            Code</a> site<br>
+        </li>
+        <li>Released to EggBot beta testers</li>
+        <li>Added alternate pause button on RB0 so that users can pause
+          plotting by shorting RB0 to GND (just like PRG button does)</li>
+        <li>Added QC command to measure voltage at the REF_RA0 net and
+          V+ net - reports back what the user has set the stepper motor
+          max current to, as well as the current input voltage to the
+          board. (The second value is only available on v1.3 and above
+          board revs.)<br>
+        </li>
+      </ul>
+      <li>Version 2.0.1</li>
+      <ul>
+        <li>Hosted at <a
+            href="http://code.google.com/p/eggbotcode/source/checkout">Google
+
+
+            Code</a> site<br>
+        </li>
+        <li>Changed code for v1.1 boards to use RB2 rather than RB0 for
+          alternate pause button<br>
+        </li>
+      </ul>
+      <li>Version 2.0.2 (Released 10/03/2010)</li>
+      <ul>
+        <li>Hosted at <a
+            href="http://code.google.com/p/eggbotcode/source/checkout">Google
+
+
+            Code</a> site<br>
+        </li>
+        <li>Fixes bug in QC command so that the upper byte of the ADC
+          conversion is properly used in the results</li>
+      </ul>
+      <li>Version 2.1.2 (Released 11/07/2011)</li>
+      <ul>
+        <li>Hosted at <a
+            href="http://code.google.com/p/eggbotcode/source/checkout">Google
+
+
+            Code</a> site</li>
+        <li>Added in SE - Set Engraver - turns engraver (on RB3) on or
+          off, or set to PWM power level</li>
+        <li>Added code in init to pre-charge RC7 (USB_SENSE_IO) high
+          before running rest of code to get around wrong resistor value
+          on hardware.</li>
+        <li>Removed Microchip USB stack v2.7, replaced it with v2.8 from
+          MAL 2010_10_19, also using generic Microchip folder now rather
+          than re-named one (simpler to update)</li>
+        <li>Updated code in main.c (and others) to match updates from
+          latest MAL CDC example</li>
+        <li>Added third paramter to SP command to use any PortB pin for
+          servo output</li>
+        <li>Updated check_and_send_TX_data() to allow unlimited data to
+          go out without overrunning the output buffer, same as UBW
+          1.4.7</li>
+        <li>Fixed PI command to return just a 0 or a 1</li>
+        <li>Updated to USB stack 2.9a</li>
+        <li>Created MPLAB X project for this firmware</li>
+        <li>Added SC,14,&lt;state&gt; to enable/disable solenoid output
+          on RB4</li>
+        <li>Fixed bug with S2 command and solenoid command interaction -
+          we now turn off solenoid output on RB4 if user uses S2 command
+          to use RB4 for RC servo output</li>
+        <li>Fixed bug with S2 command where a duration of 0 would not
+          shut off the PWM channel</li>
+        <li>Fixed bug in S2 command where &lt;rate&gt; variable was not
+          being used correctly</li>
+        <li>Switched default number of S2 channels to 8 (from 7 before)</li>
+      </ul>
+      <li>Version 2.1.3 onward:</li>
+      <ul>
+        <li>All hosted at <a
+            href="http://code.google.com/p/eggbotcode/source/checkout">Google
+
+
+            Code</a> site.</li>
+        <li>Please see <a href="EBBReleaseNotes.html">Release Notes</a>
+          page for latest information on version changes<br>
+        </li>
+      </ul>
+    </ul>
+    <ul>
+    </ul>
+    <h2>EBB Firmware Driver for Windows (XP, Vista 32/64, Windows 7
+      32/64)<br>
+    </h2>
+    The following zip file contains an INF file. This INF file must be
+    used the first time the EBB is plugged into a Windows computer. It
+    tells Windows what driver to use with the board, and it contains
+    unique strings that identify the board as an EiBotBoard from
+    SchmalzHaus.<br>
+    <br>
+    This INI file will work for all versions of EBB Firmware. However,
+    any version of EBB Firmware 1.8.2 <span style="font-weight: bold;">and
+
+
+      above</span> MUST use this custom version of the INF file, not the
+    generic one that comes from Microchip.<br>
+    <span style="font-weight: bold;"><br>
+    </span>
+    <ul>
+      <li><a href="EBF/EBB_inf.zip">EBB_inf.zip</a></li>
+    </ul>
+    <h2>EBB Bootloader</h2>
+    If you ever build your own EBB, or if you need to re-program a part
+    from scratch, you'll need the bootloader images. Please see the <a
+      href="EBBBootloader.html">EiBotBoard Bootloader information page</a>
+    for hex files and more.<br>
+    <ul>
+    </ul>
+    <h2>Updating Your Firmware</h2>
+    You'll need a Windows PC (XP, Vista and Windows 7 supported, I
+    believe), a USB cable, a power supply for your EBB (for boards
+    earlier than v1.3), the latest version of .Net (if you get an error
+    while bootloading, updating your version of the .Net runtime may be
+    the cause) a HEX file from above that you want to program into your
+    EBB, and this program.<br>
+    <ul>
+      <li>Power on your EBB with the power supply, and connect the USB
+        cable to your PC</li>
+      <li>Press and hold the PRG button while pressing and releasing the
+        RST button, then release the PRG button</li>
+      <li>Run the <a href="EBF/HIDBootLoader.zip">HIDBootloader.exe</a>
+        program</li>
+      <li>You should see it says "Device attached."</li>
+      <li>Click Open Hex File, and select the HEX file you want to
+        download</li>
+      <li>Click Program/Verify</li>
+      <li>When programming is complete, click Reset Device</li>
+      <li>When the Inkscape extension finds your EBB, it will tell you
+        the firmware version number, so you can verify that the new
+        version is detected properly<br>
+      </li>
+    </ul>
+    <br>
+    <br>
+    <span style="font-weight: bold;"></span><br>
+    <div style="text-align: center;">Questions? E-mail me at
+      brian@schmalzhaus.com<br>
+    </div>
+    <br>
+    <div style="text-align: center;"><a rel="license"
+        href="http://creativecommons.org/licenses/by/3.0/us/"><img
+          alt="Creative Commons License" src="Images/88x31.png"
+          style="border: 0px solid ; width: 88px; height: 31px;"></a><br>
+      <span xmlns:dc="http://purl.org/dc/elements/1.1/"
+        property="dc:title">EggBotBoard</span> by <a
+        xmlns:cc="http://creativecommons.org/ns#"
+        href="http://www.schmalzhaus.com/EBB"
+        property="cc:attributionName" rel="cc:attributionURL">Brian
+        Schmalz</a> is licensed under a <a rel="license"
+        href="http://creativecommons.org/licenses/by/3.0/us/">Creative
+        Commons Attribution 3.0 United States License</a>.<br>
+      Based on a work at <a xmlns:dc="http://purl.org/dc/elements/1.1/"
+        href="http:///www.schmalzhaus.com/EBB" rel="dc:source">www.schmalzhaus.com/EBB</a>.<br>
+      Permissions beyond the scope of this license may be available at <a
+        xmlns:cc="http://creativecommons.org/ns#"
+        href="http://www.schmalzhaus.com/EBB" rel="cc:morePermissions">www.schmalzhaus.com/EBB</a>.<br>
+    </div>
+    <br>
+  </body>
+</html>
