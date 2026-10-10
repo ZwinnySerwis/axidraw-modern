@@ -8,6 +8,8 @@ Sklonowane jako git submodules w `vendor/` (shallow `--depth 1`):
 | [evil-mad/plotink](https://github.com/evil-mad/plotink) | `ebb_serial.py`, `ebb_motion.py` — jedyne miejsce detekcji USB i komend ruchu |
 | [evil-mad/EggBot](https://github.com/evil-mad/EggBot) | Firmware PIC (`EBB_firmware/app.X`), HEX-e, INF Windows |
 
+Pełna mapa schematów OEM (Eagle v2.7): [`docs/SCHEMATICS.md`](SCHEMATICS.md). Źródła Eagle: `docs/upstream/oem/EBB_v27/`.
+
 Lokalne zrzuty w `docs/upstream/`:
 
 | Plik | Źródło |

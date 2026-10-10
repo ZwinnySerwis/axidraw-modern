@@ -14,3 +14,5 @@ Pobrane 2026-10-10. Upstream żyje w submodułach; to są snapshoty docs/schemat
 - https://github.com/evil-mad/axidraw
 - https://github.com/evil-mad/EggBot
 - https://github.com/evil-mad/plotink
+- https://www.schmalzhaus.com/EBB/EBB/EBB_v27/EBB_v27.zip
+- https://github.com/sparkfun/EiBotBoard
