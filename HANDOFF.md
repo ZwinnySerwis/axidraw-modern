@@ -44,8 +44,8 @@ Nowoczesny kontroler plotera kompatybilny z stockowym pluginem Inkscape AxiDraw:
 
 ### Git
 - Branch: `main`
-- Last commit: (uzupełnij po pushu tego handoffu)
-- Remote: https://github.com/ZwinnySerwis/axidraw-modern
+- Last commit: `69cd3fc` Lock MVP plan, OEM Eagle v2.7, and handoff for the Pico proto phase.
+- Remote: pushed — https://github.com/ZwinnySerwis/axidraw-modern
 
 ### Paste prompt
 > Przeczytaj @HANDOFF.md — tylko najnowszy wpis (ostatni, z datą) jest aktualny; starsze to historia. Potem otwórz pliki z sekcji Read next i krótko potwierdź, że rozumiesz stan. Nie powtarzaj zamkniętych decyzji. Zaczynamy od: faza 0 z docs/PLAN.md — toolchain Pico SDK/ARM GCC, USB CDC jako EiBotBoard na Pico 264 kB, potem STEP/DIR na proto według hardware/PINOUT.md. PCB KiCad dopiero po tym, jak plugin zobaczy urządzenie.
