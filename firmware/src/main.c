@@ -38,9 +38,14 @@ int main(void) {
     ebb_state_init(&g_state);
 
     char out[256];
+    absolute_time_t next_blink = get_absolute_time();
     while (true) {
         tud_task();
-        if (!tud_cdc_available()) {
+        if (time_reached(next_blink)) {
+            gpio_xor_mask(1u << PIN_LED);
+            next_blink = delayed_by_ms(next_blink, 250);
+        }
+        if (!tud_cdc_connected() || !tud_cdc_available()) {
             tight_loop_contents();
             continue;
         }

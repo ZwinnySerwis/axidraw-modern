@@ -31,7 +31,9 @@ Sukces fazy 0: jeden SVG z `vendor/axidraw/examples` narysowany na stole, **bez 
 
 ### 1. PCB rev A (KiCad, Pico jako moduł)
 
-Nie chip-down na pierwszym spinie. Pico (castellated / socket) + dwa sockety 16-pin stepstick + VMOT 12–24 V + buck 5 V serwo + USB z Pico + pauza + dzielnik ADC.
+Nie chip-down na pierwszym spinie. Pico (castellated / socket) + **trzy** sockety 16-pin stepstick (oś 1, oś 2, dual osi 2 — osobny driver, wspólne STEP/DIR) + VMOT 12–24 V + buck 5 V serwo + USB z Pico + pauza + dzielnik ADC na **GP28**. Nie łączymy dwóch silników na jeden stick.
+
+Na rev A od razu miejsce (footprinty DNP / złącza): 2× AS5600, LSM6DS3TR-C (SPI), pull-upy I2C. Nie spinamy drugiej płyty tylko po enkodery. Pinout: `hardware/PINOUT.md`.
 
 Referencja elektryczna: Eagle OEM v2.7 (`docs/SCHEMATICS.md`), layout własny.
 
@@ -43,7 +45,9 @@ FIFO ruchu (OK przy przyjęciu komendy, nie po ruchu), limit 25 k kroków/s, `XM
 
 ### 3. Świadomie później
 
-TMC UART / prąd z komend, Wi‑Fi (inny MCU albo mostek), fork pluginu, goły RP2040 na PCB, trzecia oś.
+TMC UART na GP8/GP9 / prąd z komend, dwa AS5600 (I2C0 + I2C1), LSM6DS3TR-C na SPI0 + INT1, input shaping, Wi‑Fi (inny MCU albo mostek), fork pluginu, goły RP2040 na PCB, trzecia oś.
+
+Enkodery i IMU **nie** wchodzą do pętli EBB w MVP. Plugin i tak nie zna tych czujników. Najpierw plot ze STEP/DIR, potem zamknięta pętla / shaping własnymi komendami albo forkiem.
 
 ## Decyzje zamknięte
 
@@ -51,5 +55,8 @@ TMC UART / prąd z komend, Wi‑Fi (inny MCU albo mostek), fork pluginu, goły R
 - Host MVP: stock AxiDraw plugin.
 - USB: nazwa `EiBotBoard`, VID Raspberry Pi — bez podszywania się pod `04D8:FD92`.
 - CAD: KiCad.
-- PCB rev A: Pico module + 2× stepstick.
+- PCB rev A: Pico module + 3× stepstick (3. slave osi 2); footprinty AS5600 × 2 + LSM6 DNP.
+- AS5600: adres `0x36` na stałe. Zmiana adresu to **AS5600L** (`0x40` + OTP). Dwa I2C zostają.
+- LSM6: SPI0, nie I2C.
+- ADC VMOT: GP28 (GP26/27 = I2C1).
 - Licencja drzewa: GPL-2.0.

@@ -8,33 +8,26 @@ Szkielet C (parser + piny + pętla CDC). Logika protokołu jest najpierw domkni�
 
 ## Toolchain (Windows)
 
-Na tej maszynie jest CMake, **brak** `arm-none-eabi-gcc` i PlatformIO.
-
-```powershell
-winget install Arm.GnuArmEmbeddedToolchain
-# albo: https://github.com/raspberrypi/pico-setup-windows
-```
-
-Potem Pico SDK:
-
-```powershell
-git clone https://github.com/raspberrypi/pico-sdk.git C:\Users\Kleszcz\pico-sdk
-cd C:\Users\Kleszcz\pico-sdk
-git submodule update --init
-$env:PICO_SDK_PATH = "C:\Users\Kleszcz\pico-sdk"
-```
-
-Build (gdy SDK i ARM GCC są na PATH):
+Zainstalowane lokalnie (2026-10-10): CMake, Ninja, ARM GCC 14.2, Pico SDK 2.1.1 w `C:\Users\Kleszcz\pico-sdk`, picotool 2.1.1 w `C:\Users\Kleszcz\pico-tools`. `PICO_SDK_PATH` jest w zmiennych użytkownika.
 
 ```powershell
 cd firmware
-mkdir build
-cd build
-cmake -G Ninja -DPICO_BOARD=pico ..
-ninja
+. .\env.ps1
+cmake -S . -B build -G Ninja -DPICO_BOARD=pico `
+  -Dpicotool_DIR="C:/Users/Kleszcz/pico-tools/picotool" `
+  -Dpioasm_DIR="C:/Users/Kleszcz/pico-tools/pioasm"
+cmake --build build
 ```
 
-Wychodzi `axidraw_modern.uf2`. Pico w BOOTSEL, wgrać UF2.
+Wychodzi `firmware/build/axidraw_modern.uf2`.
+
+**Nie wgrywamy przez PlatformIO.** To Pico SDK + CMake + Ninja. PlatformIO na tej maszynie ma ARM GCC 7.2 — za stary.
+
+Wgrywanie:
+
+1. Pico: przycisk BOOTSEL, włożyć USB → dysk `RPI-RP2`.
+2. Skopiować `firmware/build/axidraw_modern.uf2` na ten dysk. Pico sam resetuje.
+3. Albo, gdy już jest CDC: `picotool load firmware/build/axidraw_modern.uf2 -f` (wymaga BOOTSEL albo resetu przez USB).
 
 ## USB
 

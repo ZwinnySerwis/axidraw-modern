@@ -14,7 +14,7 @@ USB może zasilać sam Pico przy debugowaniu **bez** silników. Plot z silnikami
 
 Plugin: `voltage < 250` → ostrzeżenie. Na EBB ~300 ≈ 9 V.
 
-Dzielnik na GP26 tak, żeby 12 V VMOT dawało odczyt firmware w skali EBB około 400. Szczegóły skalowania w `firmware` — na razie emulator zwraca `0,400`.
+Dzielnik na **GP28** (ADC2) tak, żeby 12 V VMOT dawało odczyt firmware w skali EBB około 400. Szczegóły skalowania w `firmware` — na razie emulator zwraca `0,400`. GP26/27 są I2C1 (AS5600 motor2).
 
 ## Serwo
 

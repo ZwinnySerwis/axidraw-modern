@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<title>axidraw-modern — ściąga proto</title>
+<style>
+  @page { size: A4 landscape; margin: 8mm; }
+  * { box-sizing: border-box; }
+  body {
+    font: 11px/1.25 "Segoe UI", Helvetica, Arial, sans-serif;
+    color: #111;
+    margin: 0;
+    padding: 8px 12px;
+  }
+  h1 { font-size: 16px; margin: 0 0 2px; }
+  h2 { font-size: 12px; margin: 8px 0 4px; border-bottom: 1px solid #111; }
+  .sub { color: #333; margin: 0 0 8px; }
+  .grid { display: grid; grid-template-columns: 1.15fr 1fr 0.9fr; gap: 10px; }
+  table { width: 100%; border-collapse: collapse; }
+  th, td { border: 1px solid #333; padding: 2px 5px; text-align: left; vertical-align: top; }
+  th { background: #eee; }
+  .now { background: #fff8c4; }
+  .later { color: #555; }
+  .warn { background: #ffd6d6; }
+  .ok { background: #d8f5d0; }
+  .pico {
+    font-family: ui-monospace, Consolas, monospace;
+    font-size: 10px;
+    line-height: 1.35;
+    white-space: pre;
+    border: 1px solid #111;
+    padding: 6px 8px;
+    margin: 0;
+  }
+  ul { margin: 4px 0; padding-left: 16px; }
+  li { margin: 1px 0; }
+  .foot { margin-top: 6px; font-size: 10px; }
+  @media print {
+    body { padding: 0; }
+    a { color: inherit; text-decoration: none; }
+  }
+</style>
+</head>
+<body>
+<h1>axidraw-modern — ściąga prototypu (Pico RP2040)</h1>
+<p class="sub">UF2: <code>firmware/build/axidraw_modern.uf2</code> · BOOTSEL → dysk RPI-RP2 · LED miga = żyje · USB ma się nazywać <b>EiBotBoard</b></p>
+
+<div class="grid">
+<div>
+<h2>Pico — USB u góry, numery nóżek płytki</h2>
+<pre class="pico">
+ lewa (1–20)              prawa (40–21)
+ GP0  1  ●          ● 40 VBUS     USB
+ GP1  2  ●          ● 39 VSYS
+ GND  3  ●          ● 38 GND
+ GP2  4  ● STEP1    ● 37 3V3_EN
+ GP3  5  ● DIR1     ● 36 3V3(OUT)  → logika sticków
+ GP4  6  ● EN1      ● 35 ADC_VREF
+ GP5  7  ● STEP2    ● 34 GP28 ADC VMOT
+ GND  8  ●          ● 33 GND
+ GP6  9  ● DIR2     ● 32 GP27 I2C1 SCL  [później]
+ GP7 10  ● EN2      ● 31 GP26 I2C1 SDA  [później]
+ GP8 11  ● TMC TX   ● 30 RUN
+ GP9 12  ● TMC RX   ● 29 GP22 IMU INT1  [później]
+ GND 13  ●          ● 28 GND
+GP10 14  ● MS1      ● 27 GP21 spare
+GP11 15  ● MS2      ● 26 GP20 spare
+GP12 16  ● MS3      ● 25 GP19 SPI MOSI  [później]
+GP13 17  ● EN3      ● 24 GP18 SPI SCK   [później]
+ GND 18  ●          ● 23 GND
+GP14 19  ● PAUSE    ● 22 GP17 SPI CS    [później]
+GP15 20  ● SERVO    ● 21 GP16 SPI MISO  [później]
+</pre>
+<p class="foot">GP = numer w firmware. Nóżka = dziurka na Pico. LED = GP25 onboard, nie łączyć.</p>
+</div>
+
+<div>
+<h2>Teraz na stole (żółte)</h2>
+<table>
+  <tr><th>Sygnał</th><th>GP</th><th>Nóżka</th><th>Dokąd</th></tr>
+  <tr class="now"><td>STEP1</td><td>2</td><td>4</td><td>stick 1 STEP</td></tr>
+  <tr class="now"><td>DIR1</td><td>3</td><td>5</td><td>stick 1 DIR</td></tr>
+  <tr class="now"><td>EN1 (LOW=on)</td><td>4</td><td>6</td><td>stick 1 EN</td></tr>
+  <tr class="now"><td>STEP2 (+ stick 3)</td><td>5</td><td>7</td><td>stick 2 i 3 STEP</td></tr>
+  <tr class="now"><td>DIR2 (+ stick 3)</td><td>6</td><td>9</td><td>stick 2 i 3 DIR</td></tr>
+  <tr class="now"><td>EN2 (LOW=on)</td><td>7</td><td>10</td><td>stick 2 EN</td></tr>
+  <tr class="now"><td>MS1 / MS2 / MS3</td><td>10/11/12</td><td>14/15/16</td><td>wszystkie sticki równolegle</td></tr>
+  <tr class="now"><td>EN3 (LOW=on)</td><td>13</td><td>17</td><td>stick 3 EN</td></tr>
+  <tr class="now"><td>PAUSE</td><td>14</td><td>19</td><td>przycisk → GND (pull-up w Pico)</td></tr>
+  <tr class="now"><td>SERVO PWM</td><td>15</td><td>20</td><td>sygnał serwa (nie 5 V z Pico)</td></tr>
+  <tr class="now"><td>ADC VMOT</td><td>28</td><td>34</td><td>dzielnik 12 V → 3V3 max</td></tr>
+  <tr class="ok"><td>3V3</td><td>—</td><td>36</td><td>VDD sticków, SLEEP, RESET</td></tr>
+  <tr class="ok"><td>GND</td><td>—</td><td>3/8/13/18/23/28/33/38</td><td>wspólna masa ze zasilaczem silników</td></tr>
+</table>
+
+<h2>Stepstick 16-pin (A4988 / DRV8825 / TMC) — EN u góry z lewej</h2>
+<pre class="pico">
+ EN     ● ●  VMOT     ← 12–24 V z zasilacza, NIE z Pico
+ MS1    ● ●  GND      ← masa wspólna
+ MS2    ● ●  2B (B−)  ← silnik
+ MS3    ● ●  2A (B+)
+ RESET  ● ●  1A (A+)  ← RESET i SLEEP do 3V3
+ SLEEP  ● ●  1B (A−)
+ STEP   ● ●  VDD      ← 3V3 z Pico
+ DIR    ● ●  GND
+</pre>
+<p>TMC: UART-off (zwory jak A4988). Stick 3: STEP+DIR z sticka 2, EN osobno. <b>Nie łącz cewek dwóch silników na jeden stick.</b></p>
+</div>
+
+<div>
+<h2>Zasilanie — trzy szyny</h2>
+<table>
+  <tr><th>Szyna</th><th>Co</th></tr>
+  <tr class="warn"><td>VMOT 12–24 V</td><td>tylko VMOT na stickach. Pico tego nie pije.</td></tr>
+  <tr><td>5 V (buck)</td><td>serwo. Nie VBUS Pico pod obciążeniem.</td></tr>
+  <tr><td>3V3 z Pico</td><td>VDD / SLEEP / RESET / MS logika</td></tr>
+</table>
+<ul>
+  <li>USB = debug Pico <b>bez</b> silników.</li>
+  <li>Plot: VMOT z zasilacza, GND zasilacza ↔ GND Pico.</li>
+  <li>EN aktywne 0. STEP = narastające zbocze.</li>
+  <li>Zła strona ramy → odwróć DIR w firmware, nie w pluginie.</li>
+</ul>
+
+<h2>Później (nie na pierwszy proto)</h2>
+<table>
+  <tr><th>Co</th><th>GP</th><th>Nóżka</th></tr>
+  <tr class="later"><td>AS5600 #1 I2C0 SDA/SCL</td><td>0 / 1</td><td>1 / 2</td></tr>
+  <tr class="later"><td>AS5600 #2 I2C1 SDA/SCL</td><td>26 / 27</td><td>31 / 32</td></tr>
+  <tr class="later"><td>LSM6 SPI MISO/CS/SCK/MOSI</td><td>16–19</td><td>21–24</td></tr>
+  <tr class="later"><td>LSM6 INT1</td><td>22</td><td>29</td></tr>
+  <tr class="later"><td>TMC UART TX/RX</td><td>8 / 9</td><td>11 / 12</td></tr>
+  <tr class="later"><td>spare</td><td>20 / 21</td><td>26 / 27</td></tr>
+</table>
+<p>AS5600 adres <code>0x36</code> na stałe (zmiana adresu = chip <b>AS5600L</b>). Dwa I2C zostają.</p>
+
+<h2>Kolejność składania</h2>
+<ol>
+  <li>Tylko Pico + USB → UF2 → LED miga, Windows: EiBotBoard.</li>
+  <li>GND wspólna, 3V3 na VDD sticków, SLEEP+RESET=3V3. <b>Bez VMOT.</b></li>
+  <li>STEP/DIR/EN/MS. Potem VMOT. Na końcu silniki.</li>
+  <li>Serwo: sygnał GP15, 5 V z bucka, GND wspólna.</li>
+</ol>
+</div>
+</div>
+<p class="foot">Źródło: <code>hardware/PINOUT.md</code> · <code>hardware/POWER.md</code> · <code>firmware/include/board_pins.h</code> · 2026-10-10</p>
+</body>
+</html>
