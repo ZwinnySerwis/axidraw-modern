@@ -98,7 +98,7 @@ Nowoczesny kontroler plotera kompatybilny ze stockowym pluginem Inkscape AxiDraw
 
 ### Git
 - Branch: `main`
-- Last commit: (ten handoff)
+- Last commit: `e5aa85d` Lock Pico toolchain, EiBotBoard UF2 path, and proto pinout for three drivers.
 - Remote: https://github.com/ZwinnySerwis/axidraw-modern
 
 ### Paste prompt
