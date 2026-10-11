@@ -1,7 +1,7 @@
 #ifndef BOARD_PINS_H
 #define BOARD_PINS_H
 
-/* Raspberry Pi Pico GPIO numbers. See hardware/PINOUT.md */
+/* Raspberry Pi Pico GPIO numbers. See hardware/PINOUT.md / PROTO-SCIEGA.html */
 
 #define PIN_M1_STEP 2
 #define PIN_M1_DIR  3

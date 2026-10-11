@@ -103,3 +103,70 @@ Nowoczesny kontroler plotera kompatybilny ze stockowym pluginem Inkscape AxiDraw
 
 ### Paste prompt
 > Przeczytaj @HANDOFF.md — tylko najnowszy wpis (ostatni, z datą) jest aktualny; starsze to historia. Potem otwórz pliki z sekcji Read next i krótko potwierdź, że rozumiesz stan. Nie powtarzaj zamkniętych decyzji. Zaczynamy od: wgranie firmware/build/axidraw_modern.uf2 na Pico (BOOTSEL → RPI-RP2), sprawdzenie że stockowy plugin widzi EiBotBoard, potem STEP/DIR na DRV8825 według hardware/PINOUT.md. KiCad dopiero po tym teście.
+
+---
+
+## 2026-10-11 20:42
+
+### For the next agent
+Read this file first — **only the latest dated section** is current. Older sections are history. Then skim the files in **Read next**. Do not re-litigate closed decisions. Continue from **Next**. Lista A = kod, lista B = teren (nie blokuj A).
+
+### Goal
+Nowoczesny kontroler plotera kompatybilny ze stockowym pluginem Inkscape AxiDraw. Firmware emuluje EBB na RP2040 (Pico 264 kB). Proto na stole już jeździ; potem serwo/`QC`, potem PCB rev A w KiCad.
+
+### Closed decisions
+- MCU: Pico RP2040 264 kB. Host MVP: stock plugin, `iProduct=EiBotBoard`, VID Raspberry Pi (nie `04D8:FD92`).
+- Wgrywanie: Pico SDK + CMake + Ninja + UF2. **Nie PlatformIO**. Nie linkować `tinyusb_device` obok `pico_stdio_usb` (gubi CDC / `iProduct`).
+- Folder tej maszyny: `C:\Users\ZS\Projects\axidraw-modern`. SDK: `C:\Users\ZS\pico-sdk`. GCC: `C:\Users\ZS\arm-gnu-toolchain`.
+- Trzy stepsticki na rev A: stick 3 = slave osi 2 (STEP/DIR GP5/GP6, EN GP13). Nie równoległe cewki na jeden driver.
+- Proto na stole: **A4988** (nie DRV8825). Docelowo TMC2209 UART GP8/GP9.
+- AS5600 adres `0x36` na stałe (zmiana = AS5600L). Dwa I2C: I2C0 GP0/1, I2C1 GP26/27.
+- LSM6DS3TR-C SPI0 GP16–19, INT1 GP22 — później.
+- ADC VMOT: **GP28**, nie GP26.
+- KiCad odblokowany dopiero po tym, jak plugin widzi urządzenie — **to już zaszło**.
+- Enkodery/IMU: footprinty DNP na rev A; sterowników nie pisać bez chipów.
+- Jedyny patch hosta: VID `2E8A` w `findPort` (Inkscape AppData, nie fork w repo).
+- Prędkość / pole / kroki na mm: **plugin**, nie firmware. Firmware kręci tylko DIR/swap/dzielnik kroku w `firmware/include/config.h`.
+- MS1–3 niepodłączone na proto → pełny krok + `MOTION_STEP_DIV 16` (16T GT2 = skala AxiDraw). Po spięciu MS z 3V3: DIV=`1`.
+
+### Done
+- USB CDC EiBotBoard, `V` → 2.8.1, Windows COM7 (`2E8A:000A`).
+- `EM` → EN active-low (GP4/7/13). Inkscape Enable/Disable działa. VMOT 12 V, Vref ~0.25 V.
+- `SM`/`XM` → STEP/DIR na core1 (`firmware/src/motion.c`), kolejka 16, cap 25 kHz.
+- Plugin widzi płytkę; prosty SVG z Inkscape **narysowany na stole** (pełny krok). Faza 0 ruch: sukces.
+- Tunables: `firmware/include/config.h`. Build: `firmware/README.md` + `firmware/env.ps1`.
+- Ściąga: `hardware/PROTO-SCIEGA.html`.
+
+### Lista A
+- PWM serwa GP15 (`SP`/`SC`/`QP`) — jeszcze stub parsera, brak PWM.
+- `QC` z ADC GP28 zamiast `"0,400"`.
+- `QB` z GP14 (pauza) zamiast zawsze `0`.
+- Gdy MS pójdą na 3V3: `MOTION_STEP_DIV 1` i nowy UF2.
+
+### Lista B
+- Brak przewodów na MS1–3; pełny krok + DIV 16. Bez serwa (brak zasilacza 5 V).
+- Użytkownik sam kręci `config.h` (INVERT_DIR, SWAP_MOTORS) i Inkscape Options / `axidraw_conf.py` (prędkość, `x_travel_*`, `native_res_factor`).
+- Patch VID w `%APPDATA%\inkscape\extensions` (Python launcher + plotink 2E8A). Nie ruszać stockowego UI.
+- Pico: BOOTSEL do wgrania; 1200 baud/picotool bywa martwe.
+
+### Next
+1. Nie wołać agenta do DIR/skali/prędkości — to `config.h` i plugin. Kod: **serwo PWM na GP15**.
+2. `QC` z ADC GP28 (plugin alarmuje przy voltage < 250; `skip_voltage_check` w conf jako proteza).
+3. KiCad rev A (Pico moduł, 3× socket, DNP AS5600+LSM6) — plugin i SVG już zaliczone.
+4. MS 1/16 gdy będą przewody: DIV=1.
+
+### Read next
+- `firmware/include/config.h` — jedyny plik tuningu firmware
+- `firmware/README.md` — kompilacja i gdzie co się ustawia
+- `firmware/src/motion.c` / `firmware/src/main.c` — STEP/DIR + CDC
+- `hardware/PROTO-SCIEGA.html` — ściąga proto
+- `hardware/PINOUT.md` — pinout + dual osi 2
+- `docs/PROTOCOL.md` — komendy pluginu
+- `docs/PLAN.md` — fazy; serwo/QC potem KiCad
+
+### Git
+- Branch: `main`
+- Remote: https://github.com/ZwinnySerwis/axidraw-modern
+
+### Paste prompt
+> Przeczytaj @HANDOFF.md — tylko najnowszy wpis (ostatni, z datą) jest aktualny; starsze to historia. Lista A = kod, lista B = teren (nie blokuj A). Potem otwórz pliki z Read next i krótko potwierdź stan. Nie powtarzaj zamkniętych decyzji. Zaczynamy od: [Next #1].

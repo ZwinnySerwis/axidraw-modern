@@ -18,6 +18,11 @@ typedef struct {
     uint8_t layer;
     char nickname[17];
     int future_syntax;
+    int has_move; /* SM/XM this line */
+    int flush_motion; /* ES */
+    int32_t move_s1;
+    int32_t move_s2;
+    uint32_t move_ms;
 } ebb_state_t;
 
 void ebb_state_init(ebb_state_t *st);

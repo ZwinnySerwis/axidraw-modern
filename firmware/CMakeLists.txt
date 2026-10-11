@@ -18,13 +18,14 @@ pico_sdk_init()
 add_executable(axidraw_modern
     src/main.c
     src/ebb_parser.c
+    src/motion.c
 )
 
 target_include_directories(axidraw_modern PRIVATE include)
 
 # pico_stdio_usb supplies TinyUSB CDC + descriptors. Do not link tinyusb_device:
 # that sets LIB_TINYUSB_DEVICE and drops stdio_usb_descriptors.c (no iProduct).
-target_link_libraries(axidraw_modern pico_stdlib)
+target_link_libraries(axidraw_modern pico_stdlib pico_multicore pico_util)
 pico_enable_stdio_usb(axidraw_modern 1)
 pico_enable_stdio_uart(axidraw_modern 0)
 
@@ -33,6 +34,7 @@ pico_enable_stdio_uart(axidraw_modern 0)
 target_compile_definitions(axidraw_modern PRIVATE
     USBD_MANUFACTURER="axidraw-modern"
     USBD_PRODUCT="EiBotBoard"
+    PICO_STDIO_USB_DEFAULT_CRLF=0
 )
 
 pico_add_extra_outputs(axidraw_modern)

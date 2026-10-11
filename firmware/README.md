@@ -1,40 +1,66 @@
 # Firmware axidraw-modern (RP2040)
 
-Cel: USB CDC mówiące protokołem EBB, impulsy STEP/DIR na dwóch stepstickach, PWM serwa.
+USB CDC jako EiBotBoard (protokół EBB) → STEP/DIR na stepstickach.
 
-## Stan
+## Kompilacja (ta maszyna)
 
-Szkielet C (parser + piny + pętla CDC). Logika protokołu jest najpierw domknięta w Pythonie: `tools/ebb_sim` — tam łapiemy zgodność z pluginem zanim wgramy UF2.
+Nie PlatformIO. Pico SDK + CMake + Ninja.
 
-## Toolchain (Windows)
-
-Zainstalowane lokalnie (2026-10-10): CMake, Ninja, ARM GCC 14.2, Pico SDK 2.1.1 w `C:\Users\Kleszcz\pico-sdk`, picotool 2.1.1 w `C:\Users\Kleszcz\pico-tools`. `PICO_SDK_PATH` jest w zmiennych użytkownika.
+- Pico SDK: `C:\Users\ZS\pico-sdk` (`PICO_SDK_PATH`)
+- ARM GCC: `C:\Users\ZS\arm-gnu-toolchain\bin`
+- CMake + Ninja na PATH
 
 ```powershell
-cd firmware
+cd C:\Users\ZS\Projects\axidraw-modern\firmware
 . .\env.ps1
-cmake -S . -B build -G Ninja -DPICO_BOARD=pico `
-  -Dpicotool_DIR="C:/Users/Kleszcz/pico-tools/picotool" `
-  -Dpioasm_DIR="C:/Users/Kleszcz/pico-tools/pioasm"
+cmake -S . -B build -G Ninja -DPICO_BOARD=pico
 cmake --build build
 ```
 
-Wychodzi `firmware/build/axidraw_modern.uf2`.
+Wychodzi `firmware/build/axidraw_modern.uf2` (gitignored).
 
-**Nie wgrywamy przez PlatformIO.** To Pico SDK + CMake + Ninja. PlatformIO na tej maszynie ma ARM GCC 7.2 — za stary.
+Wgrywanie: BOOTSEL → dysk `RPI-RP2` → skopiować UF2. Pico wraca jako COM (zwykle COM7). `picotool` / 1200 baud na Windows bywa zawodne.
 
-Wgrywanie:
+## Config — dwa miejsca
 
-1. Pico: przycisk BOOTSEL, włożyć USB → dysk `RPI-RP2`.
-2. Skopiować `firmware/build/axidraw_modern.uf2` na ten dysk. Pico sam resetuje.
-3. Albo, gdy już jest CDC: `picotool load firmware/build/axidraw_modern.uf2 -f` (wymaga BOOTSEL albo resetu przez USB).
+Firmware **nie** zna mm/s ani pola roboczego. Plugin liczy kroki i czas; Pico puszcza impulsy.
+
+### 1. `firmware/include/config.h` (po zmianie: przebudowa + UF2)
+
+| Makro | Teraz | Po co |
+| --- | --- | --- |
+| `MOTION_STEP_DIV` | `16` | MS niepodłączone = pełny krok. Po spięciu MS1–3 z 3V3 ustaw `1`. |
+| `INVERT_DIR_M1` / `M2` | `0` | `1` odwraca kierunek tego silnika. |
+| `SWAP_MOTORS` | `0` | `1` zamienia motor1 ↔ motor2 (osie native pluginu). |
+| `MIN_STEP_US` | `40` | cap 25 kHz. Nie podnoś bez 1/16. |
+| `STEP_PULSE_US` | `5` | szerokość impulsu STEP. |
+| `DIR_SETUP_US` | `10` | pauza po zmianie DIR. |
+
+Piny GPIO: `firmware/include/board_pins.h`, ściąga `hardware/PROTO-SCIEGA.html`.
+
+### 2. Plugin Inkscape (bez przebudowy firmware)
+
+Prędkość, przyspieszenie, serwo: **AxiDraw Control → Options**. Apply na Config **nie** rusza silników.
+
+Pole i skala:
+
+`C:\Users\ZS\AppData\Roaming\inkscape\extensions\axidraw_conf.py`
+
+(kopia w `axidraw_deps\axidrawinternal\axidraw_conf.py` — zmień obie, jeśli nie wiesz która idzie w ruch.)
+
+| Zmienna | Domyślnie | Sens |
+| --- | --- | --- |
+| `speed_pendown` / `speed_penup` | 25 / 75 | 1–100; GUI Inkscape nadpisuje |
+| `x_travel_default` / `y_travel_default` | 11.81 / 8.58 in | pole V3 (~300×218 mm), `model = 1` |
+| `native_res_factor` | 1016.0 | kroki/cal na osiach native (nie XY). 16T GT2 + 1/16 jak AxiDraw |
+| `skip_voltage_check` | False | `True` jeśli `QC` straszy bez ADC |
+
+Kinematyka AxiDraw (`XM`): silnik1/silnik2 to osie native `(X+Y)` / `(X−Y)`, nie czyste X i Y. Lustra na proto: `SWAP_MOTORS` i `INVERT_DIR_*` w `config.h`.
+
+Stock plugin. Jedyny dopuszczalny patch hosta: VID `2E8A` w `findPort`.
 
 ## USB
 
 - `iManufacturer`: `axidraw-modern`
-- `iProduct`: `EiBotBoard`  ← wymagane przez `plotink.ebb_serial.findPort`
-- VID/PID: zostawiamy Raspberry Pi (`2E8A`) — nie podszywamy się pod Microchip `04D8:FD92`
-
-## Mapowanie COM na Windows
-
-Po wgraniu: Menedżer urządzeń → port COM. Plugin powinien zobaczyć `EiBotBoard`. Jeśli Windows nazwie urządzenie „USB Serial Device”, sprawdzamy deskryptor i ewentualnie dopisujemy nasz VID w forku `findPort` (to jedyny dopuszczalny patch hosta w MVP).
+- `iProduct`: `EiBotBoard`
+- VID/PID: Raspberry Pi `2E8A:000A` — nie Microchip `04D8:FD92`

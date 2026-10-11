@@ -39,6 +39,8 @@ static int reply_extra_ok(const char *cmd, const char *out) {
 int ebb_process_line(ebb_state_t *st, const char *line, char *out, size_t out_sz) {
     char buf[256];
     char cmd[8] = {0};
+    st->has_move = 0;
+    st->flush_motion = 0;
     upper_cmd(buf, line, sizeof(buf));
 
     char *comma = strchr(buf, ',');
@@ -75,12 +77,17 @@ int ebb_process_line(ebb_state_t *st, const char *line, char *out, size_t out_sz
     if (strcmp(cmd, "SM") == 0) {
         long dur = 0, s1 = 0, s2 = 0;
         sscanf(buf, "SM,%ld,%ld,%ld", &dur, &s1, &s2);
+        if (dur < 0) dur = 0;
         st->steps1 += (int32_t)s1;
         st->steps2 += (int32_t)s2;
         if (s1 || s2) {
             st->motor1_enabled = 1;
             st->motor2_enabled = 1;
         }
+        st->has_move = 1;
+        st->move_s1 = (int32_t)s1;
+        st->move_s2 = (int32_t)s2;
+        st->move_ms = (uint32_t)dur;
         snprintf(out, out_sz, "OK");
         return reply_extra_ok(cmd, out);
     }
@@ -88,10 +95,17 @@ int ebb_process_line(ebb_state_t *st, const char *line, char *out, size_t out_sz
     if (strcmp(cmd, "XM") == 0) {
         long dur = 0, a = 0, b = 0;
         sscanf(buf, "XM,%ld,%ld,%ld", &dur, &a, &b);
-        st->steps1 += (int32_t)(a + b);
-        st->steps2 += (int32_t)(a - b);
+        if (dur < 0) dur = 0;
+        int32_t s1 = (int32_t)(a + b);
+        int32_t s2 = (int32_t)(a - b);
+        st->steps1 += s1;
+        st->steps2 += s2;
         st->motor1_enabled = 1;
         st->motor2_enabled = 1;
+        st->has_move = 1;
+        st->move_s1 = s1;
+        st->move_s2 = s2;
+        st->move_ms = (uint32_t)dur;
         snprintf(out, out_sz, "OK");
         return reply_extra_ok(cmd, out);
     }
@@ -193,9 +207,15 @@ int ebb_process_line(ebb_state_t *st, const char *line, char *out, size_t out_sz
         return reply_extra_ok(cmd, out);
     }
 
+    if (strcmp(cmd, "ES") == 0) {
+        st->flush_motion = 1;
+        snprintf(out, out_sz, "OK");
+        return reply_extra_ok(cmd, out);
+    }
+
     if (strcmp(cmd, "PO") == 0 || strcmp(cmd, "PD") == 0 ||
         strcmp(cmd, "CU") == 0 || strcmp(cmd, "SR") == 0 ||
-        strcmp(cmd, "ES") == 0 || strcmp(cmd, "R") == 0 ||
+        strcmp(cmd, "R") == 0 ||
         strcmp(cmd, "HM") == 0 || strcmp(cmd, "ST") == 0) {
         snprintf(out, out_sz, "OK");
         return reply_extra_ok(cmd, out);
